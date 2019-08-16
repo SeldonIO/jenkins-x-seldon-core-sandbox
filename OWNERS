@@ -1,5 +1,6 @@
 approvers:
 - axsaucedo
+- gsunner
 - cliveseldon
 - jklaise
 - ryandawsonuk
@@ -7,6 +8,7 @@ approvers:
 - arnaudvl
 reviewers:
 - axsaucedo
+- gsunner
 - cliveseldon
 - jklaise
 - ryandawsonuk
