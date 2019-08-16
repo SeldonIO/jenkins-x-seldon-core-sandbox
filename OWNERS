@@ -1,18 +1,14 @@
 approvers:
-- as@seldon.io
-- cc@seldon.io
-- jk@seldon.io
-- avl@seldon.io
-- gs@seldon.io
-- rd@seldon.io
-- gv@seldon.io
-- smv@seldon.io
+- axsaucedo
+- cliveseldon
+- jklaise
+- ryandawsonuk
+- gipster
+- arnaudvl
 reviewers:
-- as@seldon.io
-- cc@seldon.io
-- jk@seldon.io
-- avl@seldon.io
-- gs@seldon.io
-- rd@seldon.io
-- gv@seldon.io
-- smv@seldon.io
+- axsaucedo
+- cliveseldon
+- jklaise
+- ryandawsonuk
+- gipster
+- arnaudvl
