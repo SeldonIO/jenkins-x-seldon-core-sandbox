@@ -1,0 +1,31 @@
+apiVersion: prow.k8s.io/v1
+kind: ProwJob
+metadata:
+  annotations:
+    prow.k8s.io/job: release
+  creationTimestamp: null
+  labels:
+    created-by-prow: "true"
+    event-GUID: dab7e114-bed2-11e9-9b9d-349b146d5d56
+    prow.k8s.io/job: release
+    prow.k8s.io/refs.org: axsaucedo
+    prow.k8s.io/refs.repo: jx-seldon-core-test
+    prow.k8s.io/type: postsubmit
+  name: 4b802e6f-bed8-11e9-83ee-ceda3b4973c9
+spec:
+  agent: tekton
+  cluster: default
+  context: release
+  job: release
+  namespace: jx
+  refs:
+    base_link: https://github.com/axsaucedo/jx-seldon-core-test/compare/7d7090f57be8...53765313e63a
+    base_ref: master
+    base_sha: 53765313e63ad84b80db752c6df4a12b52696202
+    org: axsaucedo
+    repo: jx-seldon-core-test
+  report: true
+  type: postsubmit
+status:
+  startTime: "2019-08-14T21:13:00Z"
+  state: triggered

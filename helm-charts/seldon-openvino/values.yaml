@@ -1,0 +1,11 @@
+openvino:
+  image: intelaipg/openvino-model-server:0.2
+  model:
+    path: /opt/ml/squeezenet
+    name: squeezenet1.1
+    input: data
+    output: prob
+  port: 8001
+  model_volume: hostPath
+tfserving_proxy:
+  image: seldonio/tfserving-proxy:0.2

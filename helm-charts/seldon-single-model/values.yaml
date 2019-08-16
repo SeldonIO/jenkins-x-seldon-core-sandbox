@@ -1,0 +1,10 @@
+name: my-model
+model:
+  image:
+    name: seldonio/mock_classifier:1.0
+  name: classifier
+replicas: 1
+# Add oauth key and secret if using the default API Oauth Gateway for ingress
+oauth:
+  key: 
+  secret: 
