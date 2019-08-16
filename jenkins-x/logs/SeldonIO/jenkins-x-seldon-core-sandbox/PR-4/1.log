@@ -1,0 +1,558 @@
+Step: step-credential-initializer-k6pt8:
+
+{"level":"warn","ts":1565971793.873967,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1565971793.874559,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+Step: step-working-dir-initializer-gcxn6:
+
+{"level":"warn","ts":1565971795.6646318,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1565971795.668996,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
+Step: step-place-tools:
+
+Step: step-git-source-seldonio-jenkins-x-seldon-core-skpf9:
+
+{"level":"warn","ts":1565971802.858647,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1565971806.6157365,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ master in path /workspace/source"}
+Step: step-git-merge:
+
+WARNING: no SHAs to merge, falling back to initial cloned commit
+Step: step-test-python:
+
+make: Entering directory '/workspace/source/python'
+# Protobuf
+cp ../proto/prediction.proto seldon_core/proto/
+make -C ../proto/tensorflow/ create_protos
+make[1]: Entering directory '/workspace/source/proto/tensorflow'
+./create-protos.sh
+Downloading proto files for master
+make[1]: Leaving directory '/workspace/source/proto/tensorflow'
+cp -r ../proto/tensorflow/tensorflow seldon_core/
+make -C ../proto/tensorflow clean
+make[1]: Entering directory '/workspace/source/proto/tensorflow'
+removed 'tensorflow/core/framework/tensor_shape.proto'
+removed 'tensorflow/core/framework/resource_handle.proto'
+removed 'tensorflow/core/framework/types.proto'
+removed 'tensorflow/core/framework/tensor.proto'
+removed directory 'tensorflow/core/framework'
+removed directory 'tensorflow/core'
+removed directory 'tensorflow'
+make[1]: Leaving directory '/workspace/source/proto/tensorflow'
+# OpenAPI
+cp ../openapi/wrapper.oas3.json seldon_core/openapi/seldon.json
+# Protobuf
+cd seldon_core && python -m grpc.tools.protoc -I./ --python_out=./ --grpc_python_out=./ --mypy_out=./ ./proto/prediction.proto
+Writing mypy to proto/prediction_pb2.pyi
+sed -i "s/from proto/from seldon_core.proto/g" seldon_core/proto/prediction_pb2_grpc.py
+sed -i "s/__version__ = .*/__version__ = '0.3.0'/g" seldon_core/version.py
+make: Leaving directory '/workspace/source/python'
+make: Entering directory '/workspace/source/python'
+pip install -e . -r requirements.txt
+Obtaining file:///workspace/source/python
+Collecting flask (from -r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/9b/93/628509b8d5dc749656a9641f4caf13540e2cdec85276964ff8f43bbb1d3b/Flask-1.1.1-py2.py3-none-any.whl (94kB)
+Collecting flask-cors (from -r requirements.txt (line 2))
+  Downloading https://files.pythonhosted.org/packages/78/38/e68b11daa5d613e3a91e4bf3da76c94ac9ee0d9cd515af9c1ab80d36f709/Flask_Cors-3.0.8-py2.py3-none-any.whl
+Collecting redis (from -r requirements.txt (line 3))
+  Downloading https://files.pythonhosted.org/packages/a1/ec/cff42507ef8efe9c63bb454bae7ac70af8706f584ecc96b5a23ca6499e1a/redis-3.3.7-py2.py3-none-any.whl (66kB)
+Requirement already satisfied: requests in /opt/conda/lib/python3.7/site-packages (from -r requirements.txt (line 4)) (2.21.0)
+Collecting numpy (from -r requirements.txt (line 5))
+  Downloading https://files.pythonhosted.org/packages/05/4b/55cfbfd3e5e85016eeef9f21c0ec809d978706a0d60b62cc28aeec8c792f/numpy-1.17.0-cp37-cp37m-manylinux1_x86_64.whl (20.3MB)
+Requirement already satisfied: flatbuffers in /opt/conda/lib/python3.7/site-packages (from -r requirements.txt (line 6)) (1.11)
+Requirement already satisfied: protobuf in /opt/conda/lib/python3.7/site-packages (from -r requirements.txt (line 7)) (3.7.1)
+Requirement already satisfied: grpcio in /opt/conda/lib/python3.7/site-packages (from -r requirements.txt (line 8)) (1.20.1)
+Collecting tensorflow==1.13.1 (from -r requirements.txt (line 9))
+  Downloading https://files.pythonhosted.org/packages/d4/29/6b4f1e02417c3a1ccc85380f093556ffd0b35dc354078074c5195c8447f2/tensorflow-1.13.1-cp37-cp37m-manylinux1_x86_64.whl (92.6MB)
+Collecting Flask-OpenTracing==0.2.0 (from -r requirements.txt (line 10))
+  Downloading https://files.pythonhosted.org/packages/1d/c4/0546b854a3f42af9ef959df9bd1108903698e175e7a07c057cdfaeeef718/Flask_OpenTracing-0.2.0-py2.py3-none-any.whl
+Collecting opentracing>=1.2.2<2 (from -r requirements.txt (line 11))
+  Downloading https://files.pythonhosted.org/packages/94/9f/289424136addf621fb4c75624ef9a3a80e8575da3993a87950c57e93217e/opentracing-2.2.0.tar.gz (47kB)
+Collecting jaeger-client==3.13.0 (from -r requirements.txt (line 12))
+  Downloading https://files.pythonhosted.org/packages/c8/a2/e9bd04cd660cbdffe0598173be068be23099fbd68e7a4a89b74440509130/jaeger-client-3.13.0.tar.gz (77kB)
+Collecting grpcio-opentracing (from -r requirements.txt (line 13))
+  Downloading https://files.pythonhosted.org/packages/db/82/2fcad380697c3dab25de76ee590bcab3eb9bbfb4add916044d7e83ec2b10/grpcio_opentracing-1.1.4-py3-none-any.whl
+Collecting pyyaml (from -r requirements.txt (line 14))
+  Downloading https://files.pythonhosted.org/packages/e3/e8/b3212641ee2718d556df0f23f78de8303f068fe29cdaa7a91018849582fe/PyYAML-5.1.2.tar.gz (265kB)
+Collecting minio>=4.0.9 (from -r requirements.txt (line 15))
+  Downloading https://files.pythonhosted.org/packages/97/90/0188377268945b9a47122e45fe97b0452ab3872b4f774ca602a181a23b3e/minio-4.0.20-py2.py3-none-any.whl (60kB)
+Collecting google-cloud-storage>=1.16.0 (from -r requirements.txt (line 16))
+  Downloading https://files.pythonhosted.org/packages/57/e6/a94429633ca5f812ecf661b78ff15f28f92130083a5709e6588c6c7ca5d9/google_cloud_storage-1.18.0-py2.py3-none-any.whl (69kB)
+Collecting azure-storage-blob>=2.0.1 (from -r requirements.txt (line 17))
+  Downloading https://files.pythonhosted.org/packages/3e/84/610f379b46d7d3c2d48eadeed6a12b6d46a43100fea70534f5992d0ac996/azure_storage_blob-2.1.0-py2.py3-none-any.whl (88kB)
+Collecting Jinja2>=2.10.1 (from flask->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/1d/e7/fd8b501e7a6dfe492a433deb7b9d833d39ca74916fa8bc63dd1a4947a671/Jinja2-2.10.1-py2.py3-none-any.whl (124kB)
+Collecting itsdangerous>=0.24 (from flask->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/76/ae/44b03b253d6fade317f32c24d100b3b35c2239807046a4c953c7b89fa49e/itsdangerous-1.1.0-py2.py3-none-any.whl
+Collecting click>=5.1 (from flask->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/fa/37/45185cb5abbc30d7257104c434fe0b07e5a195a6847506c074527aa599ec/Click-7.0-py2.py3-none-any.whl (81kB)
+Collecting Werkzeug>=0.15 (from flask->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/d1/ab/d3bed6b92042622d24decc7aadc8877badf18aeca1571045840ad4956d3f/Werkzeug-0.15.5-py2.py3-none-any.whl (328kB)
+Requirement already satisfied: Six in /opt/conda/lib/python3.7/site-packages (from flask-cors->-r requirements.txt (line 2)) (1.12.0)
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /opt/conda/lib/python3.7/site-packages (from requests->-r requirements.txt (line 4)) (3.0.4)
+Requirement already satisfied: idna<2.9,>=2.5 in /opt/conda/lib/python3.7/site-packages (from requests->-r requirements.txt (line 4)) (2.8)
+Requirement already satisfied: certifi>=2017.4.17 in /opt/conda/lib/python3.7/site-packages (from requests->-r requirements.txt (line 4)) (2018.11.29)
+Requirement already satisfied: urllib3<1.25,>=1.21.1 in /opt/conda/lib/python3.7/site-packages (from requests->-r requirements.txt (line 4)) (1.24.1)
+Requirement already satisfied: setuptools in /opt/conda/lib/python3.7/site-packages (from protobuf->-r requirements.txt (line 7)) (40.6.3)
+Collecting tensorflow-estimator<1.14.0rc0,>=1.13.0 (from tensorflow==1.13.1->-r requirements.txt (line 9))
+  Downloading https://files.pythonhosted.org/packages/bb/48/13f49fc3fa0fdf916aa1419013bb8f2ad09674c275b4046d5ee669a46873/tensorflow_estimator-1.13.0-py2.py3-none-any.whl (367kB)
+Requirement already satisfied: wheel>=0.26 in /opt/conda/lib/python3.7/site-packages (from tensorflow==1.13.1->-r requirements.txt (line 9)) (0.32.3)
+Collecting termcolor>=1.1.0 (from tensorflow==1.13.1->-r requirements.txt (line 9))
+  Downloading https://files.pythonhosted.org/packages/8a/48/a76be51647d0eb9f10e2a4511bf3ffb8cc1e6b14e9e4fab46173aa79f981/termcolor-1.1.0.tar.gz
+Collecting absl-py>=0.1.6 (from tensorflow==1.13.1->-r requirements.txt (line 9))
+  Downloading https://files.pythonhosted.org/packages/da/3f/9b0355080b81b15ba6a9ffcf1f5ea39e307a2778b2f2dc8694724e8abd5b/absl-py-0.7.1.tar.gz (99kB)
+Collecting keras-preprocessing>=1.0.5 (from tensorflow==1.13.1->-r requirements.txt (line 9))
+  Downloading https://files.pythonhosted.org/packages/28/6a/8c1f62c37212d9fc441a7e26736df51ce6f0e38455816445471f10da4f0a/Keras_Preprocessing-1.1.0-py2.py3-none-any.whl (41kB)
+Collecting astor>=0.6.0 (from tensorflow==1.13.1->-r requirements.txt (line 9))
+  Downloading https://files.pythonhosted.org/packages/d1/4f/950dfae467b384fc96bc6469de25d832534f6b4441033c39f914efd13418/astor-0.8.0-py2.py3-none-any.whl
+Collecting tensorboard<1.14.0,>=1.13.0 (from tensorflow==1.13.1->-r requirements.txt (line 9))
+  Downloading https://files.pythonhosted.org/packages/0f/39/bdd75b08a6fba41f098b6cb091b9e8c7a80e1b4d679a581a0ccd17b10373/tensorboard-1.13.1-py3-none-any.whl (3.2MB)
+Collecting keras-applications>=1.0.6 (from tensorflow==1.13.1->-r requirements.txt (line 9))
+  Downloading https://files.pythonhosted.org/packages/71/e3/19762fdfc62877ae9102edf6342d71b28fbfd9dea3d2f96a882ce099b03f/Keras_Applications-1.0.8-py3-none-any.whl (50kB)
+Collecting gast>=0.2.0 (from tensorflow==1.13.1->-r requirements.txt (line 9))
+  Downloading https://files.pythonhosted.org/packages/4e/35/11749bf99b2d4e3cceb4d55ca22590b0d7c2c62b9de38ac4a4a7f4687421/gast-0.2.2.tar.gz
+Collecting threadloop<2,>=1 (from jaeger-client==3.13.0->-r requirements.txt (line 12))
+  Downloading https://files.pythonhosted.org/packages/d3/1d/8398c1645b97dc008d3c658e04beda01ede3d90943d40c8d56863cf891bd/threadloop-1.0.2.tar.gz
+Collecting thrift (from jaeger-client==3.13.0->-r requirements.txt (line 12))
+  Downloading https://files.pythonhosted.org/packages/c6/b4/510617906f8e0c5660e7d96fbc5585113f83ad547a3989b80297ac72a74c/thrift-0.11.0.tar.gz (52kB)
+Collecting tornado<5,>=4.3 (from jaeger-client==3.13.0->-r requirements.txt (line 12))
+  Downloading https://files.pythonhosted.org/packages/e3/7b/e29ab3d51c8df66922fea216e2bddfcb6430fb29620e5165b16a216e0d3c/tornado-4.5.3.tar.gz (484kB)
+Collecting future (from minio>=4.0.9->-r requirements.txt (line 15))
+  Downloading https://files.pythonhosted.org/packages/90/52/e20466b85000a181e1e144fd8305caf2cf475e2f9674e797b222f8105f5f/future-0.17.1.tar.gz (829kB)
+Collecting python-dateutil (from minio>=4.0.9->-r requirements.txt (line 15))
+  Downloading https://files.pythonhosted.org/packages/41/17/c62faccbfbd163c7f57f3844689e3a78bae1f403648a6afb1d0866d87fbb/python_dateutil-2.8.0-py2.py3-none-any.whl (226kB)
+Collecting pytz (from minio>=4.0.9->-r requirements.txt (line 15))
+  Downloading https://files.pythonhosted.org/packages/87/76/46d697698a143e05f77bec5a526bf4e56a0be61d63425b68f4ba553b51f2/pytz-2019.2-py2.py3-none-any.whl (508kB)
+Collecting google-cloud-core<2.0dev,>=1.0.0 (from google-cloud-storage>=1.16.0->-r requirements.txt (line 16))
+  Downloading https://files.pythonhosted.org/packages/ee/f0/084f598629db8e6ec3627688723875cdb03637acb6d86999bb105a71df64/google_cloud_core-1.0.3-py2.py3-none-any.whl
+Collecting google-resumable-media>=0.3.1 (from google-cloud-storage>=1.16.0->-r requirements.txt (line 16))
+  Downloading https://files.pythonhosted.org/packages/e2/5d/4bc5c28c252a62efe69ed1a1561da92bd5af8eca0cdcdf8e60354fae9b29/google_resumable_media-0.3.2-py2.py3-none-any.whl
+Collecting google-auth>=1.2.0 (from google-cloud-storage>=1.16.0->-r requirements.txt (line 16))
+  Downloading https://files.pythonhosted.org/packages/c5/9b/ed0516cc1f7609fb0217e3057ff4f0f9f3e3ce79a369c6af4a6c5ca25664/google_auth-1.6.3-py2.py3-none-any.whl (73kB)
+Collecting azure-common>=1.1.5 (from azure-storage-blob>=2.0.1->-r requirements.txt (line 17))
+  Downloading https://files.pythonhosted.org/packages/00/55/a703923c12cd3172d5c007beda0c1a34342a17a6a72779f8a7c269af0cd6/azure_common-1.1.23-py2.py3-none-any.whl
+Collecting azure-storage-common~=2.1 (from azure-storage-blob>=2.0.1->-r requirements.txt (line 17))
+  Downloading https://files.pythonhosted.org/packages/6b/a0/6794b318ce0118d1a4053bdf0149a60807407db9b710354f2b203c2f5975/azure_storage_common-2.1.0-py2.py3-none-any.whl (47kB)
+Collecting MarkupSafe>=0.23 (from Jinja2>=2.10.1->flask->-r requirements.txt (line 1))
+  Downloading https://files.pythonhosted.org/packages/98/7b/ff284bd8c80654e471b769062a9b43cc5d03e7a615048d96f4619df8d420/MarkupSafe-1.1.1-cp37-cp37m-manylinux1_x86_64.whl
+Collecting mock>=2.0.0 (from tensorflow-estimator<1.14.0rc0,>=1.13.0->tensorflow==1.13.1->-r requirements.txt (line 9))
+  Downloading https://files.pythonhosted.org/packages/05/d2/f94e68be6b17f46d2c353564da56e6fb89ef09faeeff3313a046cb810ca9/mock-3.0.5-py2.py3-none-any.whl
+Collecting markdown>=2.6.8 (from tensorboard<1.14.0,>=1.13.0->tensorflow==1.13.1->-r requirements.txt (line 9))
+  Downloading https://files.pythonhosted.org/packages/c0/4e/fd492e91abdc2d2fcb70ef453064d980688762079397f779758e055f6575/Markdown-3.1.1-py2.py3-none-any.whl (87kB)
+Collecting h5py (from keras-applications>=1.0.6->tensorflow==1.13.1->-r requirements.txt (line 9))
+  Downloading https://files.pythonhosted.org/packages/8e/fd/2ca5c4f4ed33ac4178f9c4d551e3946ab480866e3cd67a65a67a4bb35367/h5py-2.9.0-cp37-cp37m-manylinux1_x86_64.whl (2.8MB)
+Collecting google-api-core<2.0.0dev,>=1.14.0 (from google-cloud-core<2.0dev,>=1.0.0->google-cloud-storage>=1.16.0->-r requirements.txt (line 16))
+  Downloading https://files.pythonhosted.org/packages/71/e5/7059475b3013a3c75abe35015c5761735ab224eb1b129fee7c8e376e7805/google_api_core-1.14.2-py2.py3-none-any.whl (68kB)
+Collecting rsa>=3.1.4 (from google-auth>=1.2.0->google-cloud-storage>=1.16.0->-r requirements.txt (line 16))
+  Downloading https://files.pythonhosted.org/packages/02/e5/38518af393f7c214357079ce67a317307936896e961e35450b70fad2a9cf/rsa-4.0-py2.py3-none-any.whl
+Collecting pyasn1-modules>=0.2.1 (from google-auth>=1.2.0->google-cloud-storage>=1.16.0->-r requirements.txt (line 16))
+  Downloading https://files.pythonhosted.org/packages/be/70/e5ea8afd6d08a4b99ebfc77bd1845248d56cfcf43d11f9dc324b9580a35c/pyasn1_modules-0.2.6-py2.py3-none-any.whl (95kB)
+Collecting cachetools>=2.0.0 (from google-auth>=1.2.0->google-cloud-storage>=1.16.0->-r requirements.txt (line 16))
+  Downloading https://files.pythonhosted.org/packages/2f/a6/30b0a0bef12283e83e58c1d6e7b5aabc7acfc4110df81a4471655d33e704/cachetools-3.1.1-py2.py3-none-any.whl
+Requirement already satisfied: cryptography in /opt/conda/lib/python3.7/site-packages (from azure-storage-common~=2.1->azure-storage-blob>=2.0.1->-r requirements.txt (line 17)) (2.4.2)
+Collecting googleapis-common-protos<2.0dev,>=1.6.0 (from google-api-core<2.0.0dev,>=1.14.0->google-cloud-core<2.0dev,>=1.0.0->google-cloud-storage>=1.16.0->-r requirements.txt (line 16))
+  Downloading https://files.pythonhosted.org/packages/eb/ee/e59e74ecac678a14d6abefb9054f0bbcb318a6452a30df3776f133886d7d/googleapis-common-protos-1.6.0.tar.gz
+Collecting pyasn1>=0.1.3 (from rsa>=3.1.4->google-auth>=1.2.0->google-cloud-storage>=1.16.0->-r requirements.txt (line 16))
+  Downloading https://files.pythonhosted.org/packages/6a/6e/209351ec34b7d7807342e2bb6ff8a96eef1fd5dcac13bdbadf065c2bb55c/pyasn1-0.4.6-py2.py3-none-any.whl (75kB)
+Requirement already satisfied: cffi!=1.11.3,>=1.7 in /opt/conda/lib/python3.7/site-packages (from cryptography->azure-storage-common~=2.1->azure-storage-blob>=2.0.1->-r requirements.txt (line 17)) (1.11.5)
+Requirement already satisfied: asn1crypto>=0.21.0 in /opt/conda/lib/python3.7/site-packages (from cryptography->azure-storage-common~=2.1->azure-storage-blob>=2.0.1->-r requirements.txt (line 17)) (0.24.0)
+Requirement already satisfied: pycparser in /opt/conda/lib/python3.7/site-packages (from cffi!=1.11.3,>=1.7->cryptography->azure-storage-common~=2.1->azure-storage-blob>=2.0.1->-r requirements.txt (line 17)) (2.19)
+Building wheels for collected packages: opentracing, jaeger-client, pyyaml, termcolor, absl-py, gast, threadloop, thrift, tornado, future, googleapis-common-protos
+  Running setup.py bdist_wheel for opentracing: started
+  Running setup.py bdist_wheel for opentracing: finished with status 'done'
+  Stored in directory: /builder/home/.cache/pip/wheels/93/e9/b5/1cdc3544f99a54caca13832b5afa26fd98701fe709dc049576
+  Running setup.py bdist_wheel for jaeger-client: started
+  Running setup.py bdist_wheel for jaeger-client: finished with status 'done'
+  Stored in directory: /builder/home/.cache/pip/wheels/2b/9f/33/f5ae3ed41c467ee0a261747216a5cdd22359c2ff2a628d2c0f
+  Running setup.py bdist_wheel for pyyaml: started
+  Running setup.py bdist_wheel for pyyaml: finished with status 'done'
+  Stored in directory: /builder/home/.cache/pip/wheels/d9/45/dd/65f0b38450c47cf7e5312883deb97d065e030c5cca0a365030
+  Running setup.py bdist_wheel for termcolor: started
+  Running setup.py bdist_wheel for termcolor: finished with status 'done'
+  Stored in directory: /builder/home/.cache/pip/wheels/7c/06/54/bc84598ba1daf8f970247f550b175aaaee85f68b4b0c5ab2c6
+  Running setup.py bdist_wheel for absl-py: started
+  Running setup.py bdist_wheel for absl-py: finished with status 'done'
+  Stored in directory: /builder/home/.cache/pip/wheels/ee/98/38/46cbcc5a93cfea5492d19c38562691ddb23b940176c14f7b48
+  Running setup.py bdist_wheel for gast: started
+  Running setup.py bdist_wheel for gast: finished with status 'done'
+  Stored in directory: /builder/home/.cache/pip/wheels/5c/2e/7e/a1d4d4fcebe6c381f378ce7743a3ced3699feb89bcfbdadadd
+  Running setup.py bdist_wheel for threadloop: started
+  Running setup.py bdist_wheel for threadloop: finished with status 'done'
+  Stored in directory: /builder/home/.cache/pip/wheels/d7/7a/30/d212623a4cd34f6cce400f8122b1b7af740d3440c68023d51f
+  Running setup.py bdist_wheel for thrift: started
+  Running setup.py bdist_wheel for thrift: finished with status 'done'
+  Stored in directory: /builder/home/.cache/pip/wheels/be/36/81/0f93ba89a1cb7887c91937948519840a72c0ffdd57cac0ae8f
+  Running setup.py bdist_wheel for tornado: started
+  Running setup.py bdist_wheel for tornado: finished with status 'done'
+  Stored in directory: /builder/home/.cache/pip/wheels/72/bf/f4/b68fa69596986881b397b18ff2b9af5f8181233aadcc9f76fd
+  Running setup.py bdist_wheel for future: started
+  Running setup.py bdist_wheel for future: finished with status 'done'
+  Stored in directory: /builder/home/.cache/pip/wheels/0c/61/d2/d6b7317325828fbb39ee6ad559dbe4664d0896da4721bf379e
+  Running setup.py bdist_wheel for googleapis-common-protos: started
+  Running setup.py bdist_wheel for googleapis-common-protos: finished with status 'done'
+  Stored in directory: /builder/home/.cache/pip/wheels/9e/3d/a2/1bec8bb7db80ab3216dbc33092bb7ccd0debfb8ba42b5668d5
+Successfully built opentracing jaeger-client pyyaml termcolor absl-py gast threadloop thrift tornado future googleapis-common-protos
+jaeger-client 3.13.0 has requirement opentracing<2,>=1.2.2, but you'll have opentracing 2.2.0 which is incompatible.
+seldon-core 0.3.0 has requirement opentracing<2,>=1.2.2, but you'll have opentracing 2.2.0 which is incompatible.
+Installing collected packages: MarkupSafe, Jinja2, itsdangerous, click, Werkzeug, flask, flask-cors, redis, numpy, mock, absl-py, tensorflow-estimator, termcolor, keras-preprocessing, astor, markdown, tensorboard, h5py, keras-applications, gast, tensorflow, opentracing, Flask-OpenTracing, tornado, threadloop, thrift, jaeger-client, grpcio-opentracing, pyyaml, future, python-dateutil, pytz, minio, pyasn1, rsa, pyasn1-modules, cachetools, google-auth, googleapis-common-protos, google-api-core, google-cloud-core, google-resumable-media, google-cloud-storage, azure-common, azure-storage-common, azure-storage-blob, seldon-core
+  Running setup.py develop for seldon-core
+Successfully installed Flask-OpenTracing-0.2.0 Jinja2-2.10.1 MarkupSafe-1.1.1 Werkzeug-0.15.5 absl-py-0.7.1 astor-0.8.0 azure-common-1.1.23 azure-storage-blob-2.1.0 azure-storage-common-2.1.0 cachetools-3.1.1 click-7.0 flask-1.1.1 flask-cors-3.0.8 future-0.17.1 gast-0.2.2 google-api-core-1.14.2 google-auth-1.6.3 google-cloud-core-1.0.3 google-cloud-storage-1.18.0 google-resumable-media-0.3.2 googleapis-common-protos-1.6.0 grpcio-opentracing-1.1.4 h5py-2.9.0 itsdangerous-1.1.0 jaeger-client-3.13.0 keras-applications-1.0.8 keras-preprocessing-1.1.0 markdown-3.1.1 minio-4.0.20 mock-3.0.5 numpy-1.17.0 opentracing-2.2.0 pyasn1-0.4.6 pyasn1-modules-0.2.6 python-dateutil-2.8.0 pytz-2019.2 pyyaml-5.1.2 redis-3.3.7 rsa-4.0 seldon-core tensorboard-1.13.1 tensorflow-1.13.1 tensorflow-estimator-1.13.0 termcolor-1.1.0 threadloop-1.0.2 thrift-0.11.0 tornado-4.5.3
+make: Leaving directory '/workspace/source/python'
+make: Entering directory '/workspace/source/python'
+python setup.py sdist bdist_wheel
+running sdist
+running egg_info
+writing seldon_core.egg-info/PKG-INFO
+writing dependency_links to seldon_core.egg-info/dependency_links.txt
+writing entry points to seldon_core.egg-info/entry_points.txt
+writing requirements to seldon_core.egg-info/requires.txt
+writing top-level names to seldon_core.egg-info/top_level.txt
+reading manifest file 'seldon_core.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no files found matching 'seldon_core/fbs/*.fbs'
+writing manifest file 'seldon_core.egg-info/SOURCES.txt'
+running check
+creating seldon-core-0.3.0
+creating seldon-core-0.3.0/seldon_core
+creating seldon-core-0.3.0/seldon_core.egg-info
+creating seldon-core-0.3.0/seldon_core/openapi
+creating seldon-core-0.3.0/seldon_core/proto
+copying files to seldon-core-0.3.0...
+copying MANIFEST.in -> seldon-core-0.3.0
+copying README.md -> seldon-core-0.3.0
+copying setup.cfg -> seldon-core-0.3.0
+copying setup.py -> seldon-core-0.3.0
+copying seldon_core/__init__.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core/api_tester.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core/flask_utils.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core/metrics.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core/microservice.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core/microservice_tester.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core/persistence.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core/seldon_client.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core/seldon_methods.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core/user_model.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core/utils.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core/version.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core/wrapper.py -> seldon-core-0.3.0/seldon_core
+copying seldon_core.egg-info/PKG-INFO -> seldon-core-0.3.0/seldon_core.egg-info
+copying seldon_core.egg-info/SOURCES.txt -> seldon-core-0.3.0/seldon_core.egg-info
+copying seldon_core.egg-info/dependency_links.txt -> seldon-core-0.3.0/seldon_core.egg-info
+copying seldon_core.egg-info/entry_points.txt -> seldon-core-0.3.0/seldon_core.egg-info
+copying seldon_core.egg-info/not-zip-safe -> seldon-core-0.3.0/seldon_core.egg-info
+copying seldon_core.egg-info/requires.txt -> seldon-core-0.3.0/seldon_core.egg-info
+copying seldon_core.egg-info/top_level.txt -> seldon-core-0.3.0/seldon_core.egg-info
+copying seldon_core/openapi/seldon.json -> seldon-core-0.3.0/seldon_core/openapi
+copying seldon_core/proto/__init__.py -> seldon-core-0.3.0/seldon_core/proto
+copying seldon_core/proto/prediction.proto -> seldon-core-0.3.0/seldon_core/proto
+copying seldon_core/proto/prediction_pb2.py -> seldon-core-0.3.0/seldon_core/proto
+copying seldon_core/proto/prediction_pb2_grpc.py -> seldon-core-0.3.0/seldon_core/proto
+Writing seldon-core-0.3.0/setup.cfg
+creating dist
+Creating tar archive
+removing 'seldon-core-0.3.0' (and everything under it)
+running bdist_wheel
+running build
+running build_py
+creating build
+creating build/lib
+creating build/lib/seldon_core
+copying seldon_core/version.py -> build/lib/seldon_core
+copying seldon_core/seldon_client.py -> build/lib/seldon_core
+copying seldon_core/persistence.py -> build/lib/seldon_core
+copying seldon_core/microservice_tester.py -> build/lib/seldon_core
+copying seldon_core/flask_utils.py -> build/lib/seldon_core
+copying seldon_core/utils.py -> build/lib/seldon_core
+copying seldon_core/api_tester.py -> build/lib/seldon_core
+copying seldon_core/user_model.py -> build/lib/seldon_core
+copying seldon_core/metrics.py -> build/lib/seldon_core
+copying seldon_core/wrapper.py -> build/lib/seldon_core
+copying seldon_core/seldon_methods.py -> build/lib/seldon_core
+copying seldon_core/__init__.py -> build/lib/seldon_core
+copying seldon_core/microservice.py -> build/lib/seldon_core
+creating build/lib/seldon_core/proto
+copying seldon_core/proto/prediction_pb2_grpc.py -> build/lib/seldon_core/proto
+copying seldon_core/proto/prediction_pb2.py -> build/lib/seldon_core/proto
+copying seldon_core/proto/__init__.py -> build/lib/seldon_core/proto
+creating build/lib/seldon_core/openapi
+copying seldon_core/openapi/seldon.json -> build/lib/seldon_core/openapi
+copying seldon_core/proto/prediction.proto -> build/lib/seldon_core/proto
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/seldon_core
+creating build/bdist.linux-x86_64/wheel/seldon_core/proto
+copying build/lib/seldon_core/proto/prediction_pb2_grpc.py -> build/bdist.linux-x86_64/wheel/seldon_core/proto
+copying build/lib/seldon_core/proto/prediction_pb2.py -> build/bdist.linux-x86_64/wheel/seldon_core/proto
+copying build/lib/seldon_core/proto/prediction.proto -> build/bdist.linux-x86_64/wheel/seldon_core/proto
+copying build/lib/seldon_core/proto/__init__.py -> build/bdist.linux-x86_64/wheel/seldon_core/proto
+copying build/lib/seldon_core/version.py -> build/bdist.linux-x86_64/wheel/seldon_core
+copying build/lib/seldon_core/seldon_client.py -> build/bdist.linux-x86_64/wheel/seldon_core
+copying build/lib/seldon_core/persistence.py -> build/bdist.linux-x86_64/wheel/seldon_core
+copying build/lib/seldon_core/microservice_tester.py -> build/bdist.linux-x86_64/wheel/seldon_core
+copying build/lib/seldon_core/flask_utils.py -> build/bdist.linux-x86_64/wheel/seldon_core
+copying build/lib/seldon_core/utils.py -> build/bdist.linux-x86_64/wheel/seldon_core
+copying build/lib/seldon_core/api_tester.py -> build/bdist.linux-x86_64/wheel/seldon_core
+copying build/lib/seldon_core/user_model.py -> build/bdist.linux-x86_64/wheel/seldon_core
+copying build/lib/seldon_core/metrics.py -> build/bdist.linux-x86_64/wheel/seldon_core
+copying build/lib/seldon_core/wrapper.py -> build/bdist.linux-x86_64/wheel/seldon_core
+copying build/lib/seldon_core/seldon_methods.py -> build/bdist.linux-x86_64/wheel/seldon_core
+copying build/lib/seldon_core/__init__.py -> build/bdist.linux-x86_64/wheel/seldon_core
+creating build/bdist.linux-x86_64/wheel/seldon_core/openapi
+copying build/lib/seldon_core/openapi/seldon.json -> build/bdist.linux-x86_64/wheel/seldon_core/openapi
+copying build/lib/seldon_core/microservice.py -> build/bdist.linux-x86_64/wheel/seldon_core
+running install_egg_info
+Copying seldon_core.egg-info to build/bdist.linux-x86_64/wheel/seldon_core-0.3.0-py3.7.egg-info
+running install_scripts
+adding license file "LICENSE" (matched pattern "LICEN[CS]E*")
+creating build/bdist.linux-x86_64/wheel/seldon_core-0.3.0.dist-info/WHEEL
+creating 'dist/seldon_core-0.3.0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'seldon_core/__init__.py'
+adding 'seldon_core/api_tester.py'
+adding 'seldon_core/flask_utils.py'
+adding 'seldon_core/metrics.py'
+adding 'seldon_core/microservice.py'
+adding 'seldon_core/microservice_tester.py'
+adding 'seldon_core/persistence.py'
+adding 'seldon_core/seldon_client.py'
+adding 'seldon_core/seldon_methods.py'
+adding 'seldon_core/user_model.py'
+adding 'seldon_core/utils.py'
+adding 'seldon_core/version.py'
+adding 'seldon_core/wrapper.py'
+adding 'seldon_core/openapi/seldon.json'
+adding 'seldon_core/proto/__init__.py'
+adding 'seldon_core/proto/prediction.proto'
+adding 'seldon_core/proto/prediction_pb2.py'
+adding 'seldon_core/proto/prediction_pb2_grpc.py'
+adding 'seldon_core-0.3.0.dist-info/LICENSE'
+adding 'seldon_core-0.3.0.dist-info/METADATA'
+adding 'seldon_core-0.3.0.dist-info/WHEEL'
+adding 'seldon_core-0.3.0.dist-info/entry_points.txt'
+adding 'seldon_core-0.3.0.dist-info/top_level.txt'
+adding 'seldon_core-0.3.0.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+make: Leaving directory '/workspace/source/python'
+make: Entering directory '/workspace/source/python'
+pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple seldon-core
+Looking in indexes: https://test.pypi.org/simple/, https://pypi.org/simple
+Requirement already satisfied: seldon-core in /workspace/source/python (0.3.0)
+Requirement already satisfied: flask in /opt/conda/lib/python3.7/site-packages (from seldon-core) (1.1.1)
+Requirement already satisfied: flask-cors in /opt/conda/lib/python3.7/site-packages (from seldon-core) (3.0.8)
+Requirement already satisfied: redis in /opt/conda/lib/python3.7/site-packages (from seldon-core) (3.3.7)
+Requirement already satisfied: requests in /opt/conda/lib/python3.7/site-packages (from seldon-core) (2.21.0)
+Requirement already satisfied: numpy in /opt/conda/lib/python3.7/site-packages (from seldon-core) (1.17.0)
+Requirement already satisfied: flatbuffers in /opt/conda/lib/python3.7/site-packages (from seldon-core) (1.11)
+Requirement already satisfied: protobuf in /opt/conda/lib/python3.7/site-packages (from seldon-core) (3.7.1)
+Requirement already satisfied: grpcio in /opt/conda/lib/python3.7/site-packages (from seldon-core) (1.20.1)
+Requirement already satisfied: tensorflow==1.13.1 in /opt/conda/lib/python3.7/site-packages (from seldon-core) (1.13.1)
+Requirement already satisfied: Flask-OpenTracing==0.2.0 in /opt/conda/lib/python3.7/site-packages (from seldon-core) (0.2.0)
+Collecting opentracing<2,>=1.2.2 (from seldon-core)
+  Downloading https://files.pythonhosted.org/packages/06/c2/90b35a1abdc639a5c6000d8202c70217d60e80f5b328870efb73fda71115/opentracing-1.3.0.tar.gz
+Requirement already satisfied: jaeger-client==3.13.0 in /opt/conda/lib/python3.7/site-packages (from seldon-core) (3.13.0)
+Requirement already satisfied: grpcio-opentracing in /opt/conda/lib/python3.7/site-packages (from seldon-core) (1.1.4)
+Requirement already satisfied: pyyaml in /opt/conda/lib/python3.7/site-packages (from seldon-core) (5.1.2)
+Requirement already satisfied: Werkzeug>=0.15 in /opt/conda/lib/python3.7/site-packages (from flask->seldon-core) (0.15.5)
+Requirement already satisfied: Jinja2>=2.10.1 in /opt/conda/lib/python3.7/site-packages (from flask->seldon-core) (2.10.1)
+Requirement already satisfied: click>=5.1 in /opt/conda/lib/python3.7/site-packages (from flask->seldon-core) (7.0)
+Requirement already satisfied: itsdangerous>=0.24 in /opt/conda/lib/python3.7/site-packages (from flask->seldon-core) (1.1.0)
+Requirement already satisfied: Six in /opt/conda/lib/python3.7/site-packages (from flask-cors->seldon-core) (1.12.0)
+Requirement already satisfied: idna<2.9,>=2.5 in /opt/conda/lib/python3.7/site-packages (from requests->seldon-core) (2.8)
+Requirement already satisfied: urllib3<1.25,>=1.21.1 in /opt/conda/lib/python3.7/site-packages (from requests->seldon-core) (1.24.1)
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /opt/conda/lib/python3.7/site-packages (from requests->seldon-core) (3.0.4)
+Requirement already satisfied: certifi>=2017.4.17 in /opt/conda/lib/python3.7/site-packages (from requests->seldon-core) (2018.11.29)
+Requirement already satisfied: setuptools in /opt/conda/lib/python3.7/site-packages (from protobuf->seldon-core) (40.6.3)
+Requirement already satisfied: termcolor>=1.1.0 in /opt/conda/lib/python3.7/site-packages (from tensorflow==1.13.1->seldon-core) (1.1.0)
+Requirement already satisfied: tensorflow-estimator<1.14.0rc0,>=1.13.0 in /opt/conda/lib/python3.7/site-packages (from tensorflow==1.13.1->seldon-core) (1.13.0)
+Requirement already satisfied: tensorboard<1.14.0,>=1.13.0 in /opt/conda/lib/python3.7/site-packages (from tensorflow==1.13.1->seldon-core) (1.13.1)
+Requirement already satisfied: keras-preprocessing>=1.0.5 in /opt/conda/lib/python3.7/site-packages (from tensorflow==1.13.1->seldon-core) (1.1.0)
+Requirement already satisfied: wheel>=0.26 in /opt/conda/lib/python3.7/site-packages (from tensorflow==1.13.1->seldon-core) (0.32.3)
+Requirement already satisfied: keras-applications>=1.0.6 in /opt/conda/lib/python3.7/site-packages (from tensorflow==1.13.1->seldon-core) (1.0.8)
+Requirement already satisfied: absl-py>=0.1.6 in /opt/conda/lib/python3.7/site-packages (from tensorflow==1.13.1->seldon-core) (0.7.1)
+Requirement already satisfied: astor>=0.6.0 in /opt/conda/lib/python3.7/site-packages (from tensorflow==1.13.1->seldon-core) (0.8.0)
+Requirement already satisfied: gast>=0.2.0 in /opt/conda/lib/python3.7/site-packages (from tensorflow==1.13.1->seldon-core) (0.2.2)
+Requirement already satisfied: tornado<5,>=4.3 in /opt/conda/lib/python3.7/site-packages (from jaeger-client==3.13.0->seldon-core) (4.5.3)
+Requirement already satisfied: threadloop<2,>=1 in /opt/conda/lib/python3.7/site-packages (from jaeger-client==3.13.0->seldon-core) (1.0.2)
+Requirement already satisfied: thrift in /opt/conda/lib/python3.7/site-packages (from jaeger-client==3.13.0->seldon-core) (0.11.0)
+Requirement already satisfied: MarkupSafe>=0.23 in /opt/conda/lib/python3.7/site-packages (from Jinja2>=2.10.1->flask->seldon-core) (1.1.1)
+Requirement already satisfied: mock>=2.0.0 in /opt/conda/lib/python3.7/site-packages (from tensorflow-estimator<1.14.0rc0,>=1.13.0->tensorflow==1.13.1->seldon-core) (3.0.5)
+Requirement already satisfied: markdown>=2.6.8 in /opt/conda/lib/python3.7/site-packages (from tensorboard<1.14.0,>=1.13.0->tensorflow==1.13.1->seldon-core) (3.1.1)
+Requirement already satisfied: h5py in /opt/conda/lib/python3.7/site-packages (from keras-applications>=1.0.6->tensorflow==1.13.1->seldon-core) (2.9.0)
+Building wheels for collected packages: opentracing
+  Running setup.py bdist_wheel for opentracing: started
+  Running setup.py bdist_wheel for opentracing: finished with status 'done'
+  Stored in directory: /builder/home/.cache/pip/wheels/5a/c7/a8/55354b8928b16dafbcd73fb8fc33d7d55cf61ed0845b912ec8
+Successfully built opentracing
+Installing collected packages: opentracing
+  Found existing installation: opentracing 2.2.0
+    Uninstalling opentracing-2.2.0:
+      Successfully uninstalled opentracing-2.2.0
+Successfully installed opentracing-1.3.0
+make: Leaving directory '/workspace/source/python'
+make: Entering directory '/workspace/source/python'
+python setup.py test
+running pytest
+Searching for pytest-cov
+Reading https://pypi.org/simple/pytest-cov/
+Downloading https://files.pythonhosted.org/packages/84/7b/73f8522619d1cbb22b9a36f9c54bc5ce5e24648e53cc1bf566477d2d1f2b/pytest_cov-2.7.1-py2.py3-none-any.whl#sha256=2b097cde81a302e1047331b48cadacf23577e431b61e9c6f49a1170bbe3d3da6
+Best match: pytest-cov 2.7.1
+Processing pytest_cov-2.7.1-py2.py3-none-any.whl
+Installing pytest_cov-2.7.1-py2.py3-none-any.whl to /workspace/source/python/.eggs
+writing requirements to /workspace/source/python/.eggs/pytest_cov-2.7.1-py3.7.egg/EGG-INFO/requires.txt
+
+Installed /workspace/source/python/.eggs/pytest_cov-2.7.1-py3.7.egg
+Searching for pytest
+Reading https://pypi.org/simple/pytest/
+Downloading https://files.pythonhosted.org/packages/2b/65/9f1c6797b6acaff47f818312c6335a34e9919beaf123b72e0069490f2422/pytest-5.1.0-py3-none-any.whl#sha256=abc562321c2d190dd63c2faadf70b86b7af21a553b61f0df5f5e1270717dc5a3
+Best match: pytest 5.1.0
+Processing pytest-5.1.0-py3-none-any.whl
+Installing pytest-5.1.0-py3-none-any.whl to /workspace/source/python/.eggs
+writing requirements to /workspace/source/python/.eggs/pytest-5.1.0-py3.7.egg/EGG-INFO/requires.txt
+
+Installed /workspace/source/python/.eggs/pytest-5.1.0-py3.7.egg
+Searching for coverage>=4.4
+Reading https://pypi.org/simple/coverage/
+Downloading https://files.pythonhosted.org/packages/81/a5/fcf4e3353e946a288e06eee05834ea5a1578ea53a8bd2213376d4db9636e/coverage-5.0a6-cp37-cp37m-manylinux1_x86_64.whl#sha256=60247c8f0c756732e2cfe21f03e6847b923b9a9eaff61f04dc64d3047ec1b669
+Best match: coverage 5.0a6
+Processing coverage-5.0a6-cp37-cp37m-manylinux1_x86_64.whl
+Installing coverage-5.0a6-cp37-cp37m-manylinux1_x86_64.whl to /workspace/source/python/.eggs
+
+Installed /workspace/source/python/.eggs/coverage-5.0a6-py3.7-linux-x86_64.egg
+Searching for wcwidth
+Reading https://pypi.org/simple/wcwidth/
+Downloading https://files.pythonhosted.org/packages/7e/9f/526a6947247599b084ee5232e4f9190a38f398d7300d866af3ab571a5bfe/wcwidth-0.1.7-py2.py3-none-any.whl#sha256=f4ebe71925af7b40a864553f761ed559b43544f8f71746c2d756c7fe788ade7c
+Best match: wcwidth 0.1.7
+Processing wcwidth-0.1.7-py2.py3-none-any.whl
+Installing wcwidth-0.1.7-py2.py3-none-any.whl to /workspace/source/python/.eggs
+
+Installed /workspace/source/python/.eggs/wcwidth-0.1.7-py3.7.egg
+Searching for py>=1.5.0
+Reading https://pypi.org/simple/py/
+Downloading https://files.pythonhosted.org/packages/76/bc/394ad449851729244a97857ee14d7cba61ddb268dce3db538ba2f2ba1f0f/py-1.8.0-py2.py3-none-any.whl#sha256=64f65755aee5b381cea27766a3a147c3f15b9b6b9ac88676de66ba2ae36793fa
+Best match: py 1.8.0
+Processing py-1.8.0-py2.py3-none-any.whl
+Installing py-1.8.0-py2.py3-none-any.whl to /workspace/source/python/.eggs
+
+Installed /workspace/source/python/.eggs/py-1.8.0-py3.7.egg
+Searching for pluggy<1.0,>=0.12
+Reading https://pypi.org/simple/pluggy/
+Downloading https://files.pythonhosted.org/packages/06/ee/de89e0582276e3551df3110088bf20844de2b0e7df2748406876cc78e021/pluggy-0.12.0-py2.py3-none-any.whl#sha256=b9817417e95936bf75d85d3f8767f7df6cdde751fc40aed3bb3074cbcb77757c
+Best match: pluggy 0.12.0
+Processing pluggy-0.12.0-py2.py3-none-any.whl
+Installing pluggy-0.12.0-py2.py3-none-any.whl to /workspace/source/python/.eggs
+writing requirements to /workspace/source/python/.eggs/pluggy-0.12.0-py3.7.egg/EGG-INFO/requires.txt
+
+Installed /workspace/source/python/.eggs/pluggy-0.12.0-py3.7.egg
+Searching for packaging
+Reading https://pypi.org/simple/packaging/
+Downloading https://files.pythonhosted.org/packages/ec/22/630ac83e8f8a9566c4f88038447ed9e16e6f10582767a01f31c769d9a71e/packaging-19.1-py2.py3-none-any.whl#sha256=a7ac867b97fdc07ee80a8058fe4435ccd274ecc3b0ed61d852d7d53055528cf9
+Best match: packaging 19.1
+Processing packaging-19.1-py2.py3-none-any.whl
+Installing packaging-19.1-py2.py3-none-any.whl to /workspace/source/python/.eggs
+writing requirements to /workspace/source/python/.eggs/packaging-19.1-py3.7.egg/EGG-INFO/requires.txt
+
+Installed /workspace/source/python/.eggs/packaging-19.1-py3.7.egg
+Searching for more-itertools>=4.0.0
+Reading https://pypi.org/simple/more-itertools/
+Downloading https://files.pythonhosted.org/packages/45/dc/3241eef99eb45f1def35cf93af35d1cf9ef4c0991792583b8f33ea41b092/more_itertools-7.2.0-py3-none-any.whl#sha256=92b8c4b06dac4f0611c0729b2f2ede52b2e1bac1ab48f089c7ddc12e26bb60c4
+Best match: more-itertools 7.2.0
+Processing more_itertools-7.2.0-py3-none-any.whl
+Installing more_itertools-7.2.0-py3-none-any.whl to /workspace/source/python/.eggs
+
+Installed /workspace/source/python/.eggs/more_itertools-7.2.0-py3.7.egg
+Searching for importlib-metadata>=0.12
+Reading https://pypi.org/simple/importlib-metadata/
+Downloading https://files.pythonhosted.org/packages/ad/aa/25fcbded2ab4ed4ff3071d1e000cd4f8f9c65653d2d7157dd105a8e81d42/importlib_metadata-0.19-py2.py3-none-any.whl#sha256=80d2de76188eabfbfcf27e6a37342c2827801e59c4cc14b0371c56fed43820e3
+Best match: importlib-metadata 0.19
+Processing importlib_metadata-0.19-py2.py3-none-any.whl
+Installing importlib_metadata-0.19-py2.py3-none-any.whl to /workspace/source/python/.eggs
+writing requirements to /workspace/source/python/.eggs/importlib_metadata-0.19-py3.7.egg/EGG-INFO/requires.txt
+
+Installed /workspace/source/python/.eggs/importlib_metadata-0.19-py3.7.egg
+Searching for attrs>=17.4.0
+Reading https://pypi.org/simple/attrs/
+Downloading https://files.pythonhosted.org/packages/23/96/d828354fa2dbdf216eaa7b7de0db692f12c234f7ef888cc14980ef40d1d2/attrs-19.1.0-py2.py3-none-any.whl#sha256=69c0dbf2ed392de1cb5ec704444b08a5ef81680a61cb899dc08127123af36a79
+Best match: attrs 19.1.0
+Processing attrs-19.1.0-py2.py3-none-any.whl
+Installing attrs-19.1.0-py2.py3-none-any.whl to /workspace/source/python/.eggs
+writing requirements to /workspace/source/python/.eggs/attrs-19.1.0-py3.7.egg/EGG-INFO/requires.txt
+
+Installed /workspace/source/python/.eggs/attrs-19.1.0-py3.7.egg
+Searching for atomicwrites>=1.0
+Reading https://pypi.org/simple/atomicwrites/
+Downloading https://files.pythonhosted.org/packages/52/90/6155aa926f43f2b2a22b01be7241be3bfd1ceaf7d0b3267213e8127d41f4/atomicwrites-1.3.0-py2.py3-none-any.whl#sha256=03472c30eb2c5d1ba9227e4c2ca66ab8287fbfbbda3888aa93dc2e28fc6811b4
+Best match: atomicwrites 1.3.0
+Processing atomicwrites-1.3.0-py2.py3-none-any.whl
+Installing atomicwrites-1.3.0-py2.py3-none-any.whl to /workspace/source/python/.eggs
+
+Installed /workspace/source/python/.eggs/atomicwrites-1.3.0-py3.7.egg
+Searching for pyparsing>=2.0.2
+Reading https://pypi.org/simple/pyparsing/
+Downloading https://files.pythonhosted.org/packages/11/fa/0160cd525c62d7abd076a070ff02b2b94de589f1a9789774f17d7c54058e/pyparsing-2.4.2-py2.py3-none-any.whl#sha256=d9338df12903bbf5d65a0e4e87c2161968b10d2e489652bb47001d82a9b028b4
+Best match: pyparsing 2.4.2
+Processing pyparsing-2.4.2-py2.py3-none-any.whl
+Installing pyparsing-2.4.2-py2.py3-none-any.whl to /workspace/source/python/.eggs
+
+Installed /workspace/source/python/.eggs/pyparsing-2.4.2-py3.7.egg
+Searching for zipp>=0.5
+Reading https://pypi.org/simple/zipp/
+Downloading https://files.pythonhosted.org/packages/da/bd/1a5fdf15aa44231fd09f63ecf175b60f057ae37ec65b343bb009364923f3/zipp-0.5.2-py2.py3-none-any.whl#sha256=8a5712cfd3bb4248015eb3b0b3c54a5f6ee3f2425963ef2a0125b8bc40aafaec
+Best match: zipp 0.5.2
+Processing zipp-0.5.2-py2.py3-none-any.whl
+Installing zipp-0.5.2-py2.py3-none-any.whl to /workspace/source/python/.eggs
+writing requirements to /workspace/source/python/.eggs/zipp-0.5.2-py3.7.egg/EGG-INFO/requires.txt
+
+Installed /workspace/source/python/.eggs/zipp-0.5.2-py3.7.egg
+running egg_info
+writing seldon_core.egg-info/PKG-INFO
+writing dependency_links to seldon_core.egg-info/dependency_links.txt
+writing entry points to seldon_core.egg-info/entry_points.txt
+writing requirements to seldon_core.egg-info/requires.txt
+writing top-level names to seldon_core.egg-info/top_level.txt
+reading manifest file 'seldon_core.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no files found matching 'seldon_core/fbs/*.fbs'
+writing manifest file 'seldon_core.egg-info/SOURCES.txt'
+running build_ext
+============================= test session starts ==============================
+platform linux -- Python 3.7.1, pytest-5.1.0, py-1.8.0, pluggy-0.12.0
+rootdir: /workspace/source/python, inifile: setup.cfg
+plugins: cov-2.7.1
+collected 157 items
+
+tests/test_api_tester.py ..                                              [  1%]
+tests/test_combiner_microservice.py ..............                       [ 10%]
+tests/test_metrics.py .................                                  [ 21%]
+tests/test_microservice.py .........                                     [ 26%]
+tests/test_microservice_tester.py .....                                  [ 29%]
+tests/test_model_microservice.py ......................                  [ 43%]
+tests/test_router_microservice.py .............                          [ 52%]
+tests/test_seldon_client.py ......................                       [ 66%]
+tests/test_transformer_microservice.py .............................     [ 84%]
+tests/test_user_model.py ..                                              [ 85%]
+tests/test_utils.py ......................                               [100%]
+
+----------- coverage: platform linux, python 3.7.1-final-0 -----------
+Name                                       Stmts   Miss  Cover
+--------------------------------------------------------------
+seldon_core/__init__.py                        1      0   100%
+seldon_core/api_tester.py                     78     37    53%
+seldon_core/flask_utils.py                    28      3    89%
+seldon_core/metrics.py                        26      0   100%
+seldon_core/microservice.py                  146     93    36%
+seldon_core/microservice_tester.py           140     43    69%
+seldon_core/persistence.py                    45     23    49%
+seldon_core/proto/__init__.py                  0      0   100%
+seldon_core/proto/prediction_pb2.py          128      0   100%
+seldon_core/proto/prediction_pb2_grpc.py     121     69    43%
+seldon_core/seldon_client.py                 439    228    48%
+seldon_core/seldon_methods.py                110      5    95%
+seldon_core/user_model.py                    113     27    76%
+seldon_core/utils.py                         151     20    87%
+seldon_core/version.py                         1      0   100%
+seldon_core/wrapper.py                       102      7    93%
+--------------------------------------------------------------
+TOTAL                                       1629    555    66%
+
+
+============================= 157 passed in 42.42s =============================
+make: Leaving directory '/workspace/source/python'
