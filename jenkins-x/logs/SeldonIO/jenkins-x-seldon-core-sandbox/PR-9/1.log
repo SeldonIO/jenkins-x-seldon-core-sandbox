@@ -1,0 +1,50 @@
+Step: step-credential-initializer-jl5rq:
+
+{"level":"warn","ts":1566073165.971668,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1566073165.972005,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+Step: step-working-dir-initializer-ch26j:
+
+{"level":"warn","ts":1566073166.741914,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1566073166.744941,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
+Step: step-place-tools:
+
+Step: step-git-source-meta-seldonio-jenkins-x-seldon-f58b5:
+
+{"level":"warn","ts":1566073172.7870877,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1566073175.074218,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ d4e44debe6345f9ea0ea15c8817c9acf5ecb83d1 in path /workspace/source"}
+Step: step-git-merge:
+
+{"level":"info","msg":"Using SHAs from PULL_REFS=master:d4e44debe6345f9ea0ea15c8817c9acf5ecb83d1,9:f339050ea66d798c875bd1ca29da1112602766d0","time":"2019-08-17T20:19:35Z"}
+{"level":"debug","msg":"ran git fetch --unshallow origin f339050ea66d798c875bd1ca29da1112602766d0: d4e44debe6345f9ea0ea15c8817c9acf5ecb83d1: in ","time":"2019-08-17T20:19:36Z"}
+{"level":"debug","msg":"ran git checkout master in ","time":"2019-08-17T20:19:36Z"}
+{"level":"debug","msg":"ran git reset --hard d4e44debe6345f9ea0ea15c8817c9acf5ecb83d1 in ","time":"2019-08-17T20:19:36Z"}
+{"level":"debug","msg":"ran clean --force -d . in ","time":"2019-08-17T20:19:36Z"}
+{"level":"debug","msg":"ran git merge f339050ea66d798c875bd1ca29da1112602766d0 in ","time":"2019-08-17T20:19:36Z"}
+MERGED SHA SUBJECT
+f339050ea  Added
+Step: step-merge-pull-refs:
+
+{"level":"debug","msg":"ran git fetch origin f339050ea66d798c875bd1ca29da1112602766d0: d4e44debe6345f9ea0ea15c8817c9acf5ecb83d1: in ","time":"2019-08-17T20:19:38Z"}
+{"level":"debug","msg":"Unshallowed git repo in ","time":"2019-08-17T20:19:38Z"}
+{"level":"debug","msg":"ran git checkout master in ","time":"2019-08-17T20:19:38Z"}
+{"level":"debug","msg":"ran git reset --hard d4e44debe6345f9ea0ea15c8817c9acf5ecb83d1 in ","time":"2019-08-17T20:19:38Z"}
+{"level":"debug","msg":"ran clean --force -d . in ","time":"2019-08-17T20:19:38Z"}
+{"level":"debug","msg":"ran git merge f339050ea66d798c875bd1ca29da1112602766d0 in ","time":"2019-08-17T20:19:38Z"}
+MERGED SHA SUBJECT
+f339050ea  Added
+Step: step-create-effective-pipeline:
+
+{"level":"info","msg":"Deleting and cloning the Jenkins X versions repo","time":"2019-08-17T20:19:39Z"}
+{"level":"info","msg":"Cloning the Jenkins X versions repo https://github.com/jenkins-x/jenkins-x-versions.git with ref refs/heads/master to /builder/home/.**/jenkins-x-versions","time":"2019-08-17T20:19:39Z"}
+{"level":"info","msg":"Effective pipeline written to jenkins-x-serverless-jenkins-effective.yml","time":"2019-08-17T20:19:42Z"}
+Step: step-create-tekton-crds:
+
+{"level":"info","msg":"PipelineActivity for SeldonIO-jenkins-x-seldon-core-sandbox-PR-9-1","time":"2019-08-17T20:19:43Z"}
+{"level":"info","msg":"Applying changes ","time":"2019-08-17T20:19:43Z"}
+{"level":"info","msg":"Checking if batch build reconciling is needed","time":"2019-08-17T20:19:43Z"}
+{"level":"info","msg":"upserted PipelineResource seldonio-jenkins-x-seldon-core for the git repository https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git and branch PR-9","time":"2019-08-17T20:19:43Z"}
+{"level":"info","msg":"upserted Task seldonio-jenkins-x-seldon-core-sdzmh-seldon-python-1","time":"2019-08-17T20:19:43Z"}
+{"level":"info","msg":"upserted Task seldonio-jenkins-x-seldon-core-sdzmh-seldon-engine-1","time":"2019-08-17T20:19:43Z"}
+{"level":"info","msg":"upserted Pipeline seldonio-jenkins-x-seldon-core-sdzmh-1","time":"2019-08-17T20:19:43Z"}
+{"level":"info","msg":"created PipelineRun seldonio-jenkins-x-seldon-core-sdzmh-1","time":"2019-08-17T20:19:43Z"}
+{"level":"info","msg":"created PipelineStructure seldonio-jenkins-x-seldon-core-sdzmh-1","time":"2019-08-17T20:19:43Z"}
