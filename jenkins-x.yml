@@ -57,7 +57,7 @@ pipelineConfig:
               command: make
               args: 
                 - -C
-                - python
+                - pythonz
                 - update_package &&
                 - make
                 - -C
@@ -71,6 +71,7 @@ pipelineConfig:
                 - -C
                 - python
                 - pip-install &&
+                - make
                 - -C
                 - python
                 - test
