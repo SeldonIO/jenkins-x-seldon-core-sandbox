@@ -17,7 +17,7 @@ pipelineConfig:
                   args: 
                     - -C
                     - python
-                    - update_package &&
+                    - zupdate_package &&
                     - make
                     - -C
                     - python
@@ -57,7 +57,7 @@ pipelineConfig:
               command: make
               args: 
                 - -C
-                - pythonz
+                - python
                 - update_package &&
                 - make
                 - -C
