@@ -41,6 +41,7 @@ pipelineConfig:
                   command: make
                   args:
                   - -C
+                  - zengine
                   - -f
                   - Makefile.ci
                   - build_jar
