@@ -71,7 +71,6 @@ pipelineConfig:
                 - -C
                 - python
                 - pip-install &&
-                - make
                 - -C
                 - python
                 - test
