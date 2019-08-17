@@ -16,8 +16,7 @@ pipelineConfig:
                   command: make
                   args: 
                     - -C
-                    - python
-                    - zupdate_package &&
+                    - update_package &&
                     - make
                     - -C
                     - python
@@ -42,7 +41,6 @@ pipelineConfig:
                   command: make
                   args:
                   - -C
-                  - engine
                   - -f
                   - Makefile.ci
                   - build_jar
