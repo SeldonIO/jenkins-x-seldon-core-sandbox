@@ -1,0 +1,62 @@
+Step: step-credential-initializer-rz2z4:
+
+{"level":"warn","ts":1566066896.1169033,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1566066896.1175137,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+Step: step-working-dir-initializer-k765s:
+
+{"level":"warn","ts":1566066896.9831495,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1566066896.988478,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
+Step: step-place-tools:
+
+Step: step-git-source-meta-seldonio-jenkins-x-seldon-5tzjs:
+
+{"level":"warn","ts":1566066903.0124698,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1566066905.2733474,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ 75ad3236b2b9d17e92ef93e064cad3a237ecf58e in path /workspace/source"}
+Step: step-git-merge:
+
+{"level":"info","msg":"Using SHAs from PULL_REFS=master:75ad3236b2b9d17e92ef93e064cad3a237ecf58e,7:d90ad1355afdca3e4709d6b5bfa1bf4e83f69dfe","time":"2019-08-17T18:35:05Z"}
+{"level":"debug","msg":"ran git fetch --unshallow origin d90ad1355afdca3e4709d6b5bfa1bf4e83f69dfe: 75ad3236b2b9d17e92ef93e064cad3a237ecf58e: in ","time":"2019-08-17T18:35:07Z"}
+{"level":"debug","msg":"ran git checkout master in ","time":"2019-08-17T18:35:07Z"}
+{"level":"debug","msg":"ran git reset --hard 75ad3236b2b9d17e92ef93e064cad3a237ecf58e in ","time":"2019-08-17T18:35:07Z"}
+{"level":"debug","msg":"ran clean --force -d . in ","time":"2019-08-17T18:35:07Z"}
+{"level":"debug","msg":"ran git merge d90ad1355afdca3e4709d6b5bfa1bf4e83f69dfe in ","time":"2019-08-17T18:35:07Z"}
+MERGED SHA SUBJECT
+d90ad1355  Added
+4f931cd3d  Added
+866be0a71  Added
+4dad3effd  Added
+eb5c7eda5  Added
+2197a3164  This shoudl fail
+b6d25bfaf  Testing slack attempt 2
+Step: step-merge-pull-refs:
+
+{"level":"debug","msg":"ran git fetch origin d90ad1355afdca3e4709d6b5bfa1bf4e83f69dfe: 75ad3236b2b9d17e92ef93e064cad3a237ecf58e: in ","time":"2019-08-17T18:35:08Z"}
+{"level":"debug","msg":"Unshallowed git repo in ","time":"2019-08-17T18:35:08Z"}
+{"level":"debug","msg":"ran git checkout master in ","time":"2019-08-17T18:35:08Z"}
+{"level":"debug","msg":"ran git reset --hard 75ad3236b2b9d17e92ef93e064cad3a237ecf58e in ","time":"2019-08-17T18:35:08Z"}
+{"level":"debug","msg":"ran clean --force -d . in ","time":"2019-08-17T18:35:08Z"}
+{"level":"debug","msg":"ran git merge d90ad1355afdca3e4709d6b5bfa1bf4e83f69dfe in ","time":"2019-08-17T18:35:08Z"}
+MERGED SHA SUBJECT
+d90ad1355  Added
+4f931cd3d  Added
+866be0a71  Added
+4dad3effd  Added
+eb5c7eda5  Added
+2197a3164  This shoudl fail
+b6d25bfaf  Testing slack attempt 2
+Step: step-create-effective-pipeline:
+
+{"level":"info","msg":"Deleting and cloning the Jenkins X versions repo","time":"2019-08-17T18:35:09Z"}
+{"level":"info","msg":"Cloning the Jenkins X versions repo https://github.com/jenkins-x/jenkins-x-versions.git with ref refs/heads/master to /builder/home/.**/jenkins-x-versions","time":"2019-08-17T18:35:09Z"}
+{"level":"info","msg":"Effective pipeline written to jenkins-x-serverless-jenkins-effective.yml","time":"2019-08-17T18:35:12Z"}
+Step: step-create-tekton-crds:
+
+{"level":"info","msg":"PipelineActivity for SeldonIO-jenkins-x-seldon-core-sandbox-PR-7-6","time":"2019-08-17T18:35:13Z"}
+{"level":"info","msg":"Applying changes ","time":"2019-08-17T18:35:13Z"}
+{"level":"info","msg":"Checking if batch build reconciling is needed","time":"2019-08-17T18:35:13Z"}
+{"level":"info","msg":"upserted PipelineResource seldonio-jenkins-x-seldon-core for the git repository https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git and branch PR-7","time":"2019-08-17T18:35:14Z"}
+{"level":"info","msg":"upserted Task seldonio-jenkins-x-seldon-core-znmsq-seldon-python-6","time":"2019-08-17T18:35:14Z"}
+{"level":"info","msg":"upserted Task seldonio-jenkins-x-seldon-core-znmsq-seldon-engine-6","time":"2019-08-17T18:35:14Z"}
+{"level":"info","msg":"upserted Pipeline seldonio-jenkins-x-seldon-core-znmsq-6","time":"2019-08-17T18:35:14Z"}
+{"level":"info","msg":"created PipelineRun seldonio-jenkins-x-seldon-core-znmsq-6","time":"2019-08-17T18:35:14Z"}
+{"level":"info","msg":"created PipelineStructure seldonio-jenkins-x-seldon-core-znmsq-6","time":"2019-08-17T18:35:14Z"}
