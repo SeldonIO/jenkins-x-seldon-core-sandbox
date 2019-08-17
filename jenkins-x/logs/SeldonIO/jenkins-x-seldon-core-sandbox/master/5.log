@@ -1,43 +1,43 @@
-Step: step-credential-initializer-b9spq:
+Step: step-credential-initializer-8rnlk:
 
-{"level":"warn","ts":1565969340.6091485,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
-{"level":"info","ts":1565969340.6095893,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
-Step: step-working-dir-initializer-rpdl6:
+{"level":"warn","ts":1566067618.7547274,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1566067618.7550128,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+Step: step-working-dir-initializer-rzhb6:
 
-{"level":"warn","ts":1565969341.3577523,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
-{"level":"info","ts":1565969341.3650196,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
+{"level":"warn","ts":1566067619.6036017,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1566067619.6118684,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
 Step: step-place-tools:
 
-Step: step-git-source-meta-seldonio-jenkins-x-seldon-7znmt:
+Step: step-git-source-meta-seldonio-jenkins-x-seldon-vhhgh:
 
-{"level":"warn","ts":1565969347.4112513,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
-{"level":"info","ts":1565969349.5450294,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ 1061620a0e4c20fd927c943119fb4dd5cc15d63f in path /workspace/source"}
+{"level":"warn","ts":1566067633.7536533,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1566067636.1532605,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ d4e44debe6345f9ea0ea15c8817c9acf5ecb83d1 in path /workspace/source"}
 Step: step-git-merge:
 
-{"level":"info","msg":"Using SHAs from PULL_REFS=master:1061620a0e4c20fd927c943119fb4dd5cc15d63f","time":"2019-08-16T15:29:10Z"}
-{"level":"warning","msg":"no SHAs to merge, falling back to initial cloned commit","time":"2019-08-16T15:29:10Z"}
+{"level":"info","msg":"Using SHAs from PULL_REFS=master:d4e44debe6345f9ea0ea15c8817c9acf5ecb83d1","time":"2019-08-17T18:47:17Z"}
+{"level":"warning","msg":"no SHAs to merge, falling back to initial cloned commit","time":"2019-08-17T18:47:17Z"}
 Step: step-merge-pull-refs:
 
 SKIP merge-pull-refs: Nothing to merge
 Step: step-create-effective-pipeline:
 
-{"level":"info","msg":"Deleting and cloning the Jenkins X versions repo","time":"2019-08-16T15:29:11Z"}
-{"level":"info","msg":"Cloning the Jenkins X versions repo https://github.com/jenkins-x/jenkins-x-versions.git with ref refs/heads/master to /builder/home/.**/jenkins-x-versions","time":"2019-08-16T15:29:11Z"}
-{"level":"info","msg":"Effective pipeline written to jenkins-x-effective.yml","time":"2019-08-16T15:29:13Z"}
+{"level":"info","msg":"Deleting and cloning the Jenkins X versions repo","time":"2019-08-17T18:47:18Z"}
+{"level":"info","msg":"Cloning the Jenkins X versions repo https://github.com/jenkins-x/jenkins-x-versions.git with ref refs/heads/master to /builder/home/.**/jenkins-x-versions","time":"2019-08-17T18:47:18Z"}
+{"level":"info","msg":"Effective pipeline written to jenkins-x-release-effective.yml","time":"2019-08-17T18:47:22Z"}
 Step: step-create-tekton-crds:
 
-{"level":"info","msg":"running command: ** step next-version --use-git-tag-only --tag","time":"2019-08-16T15:29:15Z"}
-{"level":"info","msg":"created new version: 0.0.5 and written to file: ./VERSION","time":"2019-08-16T15:29:16Z"}
-{"level":"info","msg":"Updating chart version in charts/jenkins-x-seldon-core-sandbox/Chart.yaml to 0.0.5","time":"2019-08-16T15:29:16Z"}
-{"level":"info","msg":"Updating repository in charts/jenkins-x-seldon-core-sandbox/values.yaml to klawcluster.azurecr.io/seldonio/jenkins-x-seldon-core-sandbox","time":"2019-08-16T15:29:16Z"}
-{"level":"info","msg":"Updating tag in charts/jenkins-x-seldon-core-sandbox/values.yaml to 0.0.5","time":"2019-08-16T15:29:16Z"}
-{"level":"info","msg":"Tag v0.0.5 created and pushed to remote origin","time":"2019-08-16T15:29:21Z"}
-{"level":"info","msg":"","time":"2019-08-16T15:29:21Z"}
-{"level":"info","msg":"PipelineActivity for SeldonIO-jenkins-x-seldon-core-sandbox-master-5","time":"2019-08-16T15:29:21Z"}
-{"level":"info","msg":"Applying changes ","time":"2019-08-16T15:29:21Z"}
-{"level":"info","msg":"upserted PipelineResource seldonio-jenkins-x-seldon-core for the git repository https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git and branch master","time":"2019-08-16T15:29:21Z"}
-{"level":"info","msg":"upserted Task seldonio-jenkins-x-seldon-core-mzq2g-seldon-python-5","time":"2019-08-16T15:29:21Z"}
-{"level":"info","msg":"upserted Task seldonio-jenkins-x-seldon-core-mzq2g-seldon-engine-5","time":"2019-08-16T15:29:21Z"}
-{"level":"info","msg":"upserted Pipeline seldonio-jenkins-x-seldon-core-mzq2g-5","time":"2019-08-16T15:29:21Z"}
-{"level":"info","msg":"created PipelineRun seldonio-jenkins-x-seldon-core-mzq2g-5","time":"2019-08-16T15:29:21Z"}
-{"level":"info","msg":"created PipelineStructure seldonio-jenkins-x-seldon-core-mzq2g-5","time":"2019-08-16T15:29:21Z"}
+{"level":"info","msg":"running command: ** step next-version --use-git-tag-only --tag","time":"2019-08-17T18:47:23Z"}
+{"level":"info","msg":"created new version: 0.0.10 and written to file: ./VERSION","time":"2019-08-17T18:47:24Z"}
+{"level":"info","msg":"Updating chart version in charts/jenkins-x-seldon-core-sandbox/Chart.yaml to 0.0.10","time":"2019-08-17T18:47:24Z"}
+{"level":"info","msg":"Updating repository in charts/jenkins-x-seldon-core-sandbox/values.yaml to klawcluster.azurecr.io/seldonio/jenkins-x-seldon-core-sandbox","time":"2019-08-17T18:47:24Z"}
+{"level":"info","msg":"Updating tag in charts/jenkins-x-seldon-core-sandbox/values.yaml to 0.0.10","time":"2019-08-17T18:47:24Z"}
+{"level":"info","msg":"Tag v0.0.10 created and pushed to remote origin","time":"2019-08-17T18:47:29Z"}
+{"level":"info","msg":"","time":"2019-08-17T18:47:29Z"}
+{"level":"info","msg":"PipelineActivity for SeldonIO-jenkins-x-seldon-core-sandbox-master-5","time":"2019-08-17T18:47:29Z"}
+{"level":"info","msg":"Applying changes ","time":"2019-08-17T18:47:29Z"}
+{"level":"info","msg":"upserted PipelineResource seldonio-jenkins-x-seldon-core for the git repository https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git and branch master","time":"2019-08-17T18:47:29Z"}
+{"level":"info","msg":"upserted Task seldonio-jenkins-x-seldon-core-xnhfr-seldon-python-5","time":"2019-08-17T18:47:29Z"}
+{"level":"info","msg":"upserted Task seldonio-jenkins-x-seldon-core-xnhfr-seldon-engine-5","time":"2019-08-17T18:47:29Z"}
+{"level":"info","msg":"upserted Pipeline seldonio-jenkins-x-seldon-core-xnhfr-5","time":"2019-08-17T18:47:29Z"}
+{"level":"info","msg":"created PipelineRun seldonio-jenkins-x-seldon-core-xnhfr-5","time":"2019-08-17T18:47:29Z"}
+{"level":"info","msg":"created PipelineStructure seldonio-jenkins-x-seldon-core-xnhfr-5","time":"2019-08-17T18:47:29Z"}
