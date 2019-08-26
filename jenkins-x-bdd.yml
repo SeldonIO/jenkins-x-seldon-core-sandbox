@@ -1,0 +1,77 @@
+buildPack: none
+pipelineConfig:
+  pipelines:
+    pullRequest:
+      pipeline:
+        agent:
+          image: seldonio/python-builder:0.2
+        stages:
+          - name: seldon-python
+            steps:
+            - name: test-python
+              command: make
+              args: 
+                - -C
+                - python
+                - update_package 
+            - name: test-python
+              command: make
+              args: 
+                - -C
+                - python
+                - install-dev 
+            - name: test-python
+              command: make
+              args: 
+                - -C
+                - python
+                - build_pypi
+            - name: test-python
+              command: make
+              args: 
+                - -C
+                - python
+                - pip-install
+            - name: test-python
+              command: make
+              args: 
+                - -C
+                - python
+                - test
+    release:
+      pipeline:
+        agent:
+          image: seldonio/python-builder:0.2
+        stages:
+          - name: seldon-python
+            steps:
+            - name: test-python
+              command: make
+              args: 
+                - -C
+                - python
+                - update_package 
+            - name: test-python
+              command: make
+              args: 
+                - -C
+                - python
+                - install-dev 
+            - name: test-python
+              command: make
+              args: 
+                - -C
+                - python
+                - build_pypi
+            - name: test-python
+              command: make
+              args: 
+                - -C
+                - python
+                - pip-install
+            - name: test-python
+              command: make
+              args: 
+                - -C
+                - python
+                - test
