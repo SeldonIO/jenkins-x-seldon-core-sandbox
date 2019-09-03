@@ -1,31 +1,31 @@
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mmeta-pipeline[0m and container [32mstep-credential-initializer-6whrt[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-credential-initializer-6whrt[0m
 {"level":"warn","ts":1567518521.6289136,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
 {"level":"info","ts":1567518521.6293547,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mmeta-pipeline[0m and container [32mstep-working-dir-initializer-dp9vr[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-working-dir-initializer-dp9vr[0m
 {"level":"warn","ts":1567518522.7030175,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
 {"level":"info","ts":1567518522.704311,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mmeta-pipeline[0m and container [32mstep-place-tools[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-place-tools[0m
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mmeta-pipeline[0m and container [32mstep-git-source-meta-seldonio-jenkins-x-seldon-bjgbj[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-git-source-meta-seldonio-jenkins-x-seldon-bjgbj[0m
 {"level":"warn","ts":1567518528.7769604,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
 {"level":"info","ts":1567518530.9298713,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ 9056ab0e5d6ba71ae2695a29b2f49315ef580cad in path /workspace/source"}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mmeta-pipeline[0m and container [32mstep-git-merge[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-git-merge[0m
 {"level":"info","msg":"Using SHAs from PULL_REFS=master:9056ab0e5d6ba71ae2695a29b2f49315ef580cad","time":"2019-09-03T13:48:51Z"}
 {"level":"warning","msg":"no SHAs to merge, falling back to initial cloned commit","time":"2019-09-03T13:48:51Z"}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mmeta-pipeline[0m and container [32mstep-merge-pull-refs[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-merge-pull-refs[0m
 SKIP merge-pull-refs: Nothing to merge
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mmeta-pipeline[0m and container [32mstep-create-effective-pipeline[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-create-effective-pipeline[0m
 {"level":"info","msg":"Deleting and cloning the Jenkins X versions repo","time":"2019-09-03T13:48:52Z"}
 {"level":"info","msg":"Cloning the Jenkins X versions repo https://github.com/jenkins-x/jenkins-x-versions.git with ref refs/heads/master to /builder/home/.**/jenkins-x-versions","time":"2019-09-03T13:48:52Z"}
 {"level":"info","msg":"Effective pipeline written to jenkins-x-release-effective.yml","time":"2019-09-03T13:48:55Z"}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mmeta-pipeline[0m and container [32mstep-create-tekton-crds[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mmeta-pipeline[0m and container [32mstep-create-tekton-crds[0m
 {"level":"info","msg":"running command: ** step next-version --use-git-tag-only --tag","time":"2019-09-03T13:48:56Z"}
 {"level":"info","msg":"created new version: 0.0.16 and written to file: ./VERSION","time":"2019-09-03T13:48:57Z"}
 {"level":"info","msg":"Updating chart version in charts/jenkins-x-seldon-core-sandbox/Chart.yaml to 0.0.16","time":"2019-09-03T13:48:57Z"}
@@ -42,25 +42,25 @@ Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [3
 {"level":"info","msg":"created PipelineRun seldonio-jenkins-x-seldon-core-8ksff-2","time":"2019-09-03T13:49:03Z"}
 {"level":"info","msg":"created PipelineStructure seldonio-jenkins-x-seldon-core-8ksff-2","time":"2019-09-03T13:49:03Z"}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-engine[0m and container [32mstep-credential-initializer-dhlbc[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-engine[0m and container [32mstep-credential-initializer-dhlbc[0m
 {"level":"warn","ts":1567518826.0300133,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
 {"level":"info","ts":1567518826.0310085,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-engine[0m and container [32mstep-working-dir-initializer-hgc79[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-engine[0m and container [32mstep-working-dir-initializer-hgc79[0m
 {"level":"warn","ts":1567518826.887926,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
 {"level":"info","ts":1567518826.9170187,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-engine[0m and container [32mstep-place-tools[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-engine[0m and container [32mstep-place-tools[0m
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-engine[0m and container [32mstep-create-dir-workspace-2kzxc[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-engine[0m and container [32mstep-create-dir-workspace-2kzxc[0m
 {"level":"warn","ts":1567518831.923958,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
 {"level":"info","ts":1567518831.927279,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-engine[0m and container [32mstep-source-copy-workspace-rh2c6[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-engine[0m and container [32mstep-source-copy-workspace-rh2c6[0m
 {"level":"warn","ts":1567518832.4483194,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
 {"level":"info","ts":1567518838.7543068,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"cp -r /pvc/seldon-python/workspace/. /workspace/source\""}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-engine[0m and container [32mstep-test-engine[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-engine[0m and container [32mstep-test-engine[0m
 make: Entering directory '/workspace/source/engine'
 cd ../proto/k8s ; make create_protos
 make[1]: Entering directory '/workspace/source/proto/k8s'
@@ -6844,25 +6844,25 @@ Tests run: 25, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 make: Leaving directory '/workspace/source/engine'
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-python[0m and container [32mstep-credential-initializer-vlvwr[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-python[0m and container [32mstep-credential-initializer-vlvwr[0m
 {"level":"warn","ts":1567518597.2438524,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
 {"level":"info","ts":1567518597.2441483,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-python[0m and container [32mstep-working-dir-initializer-pb6s8[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-python[0m and container [32mstep-working-dir-initializer-pb6s8[0m
 {"level":"warn","ts":1567518598.1341836,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
 {"level":"info","ts":1567518598.1764002,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-python[0m and container [32mstep-place-tools[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-python[0m and container [32mstep-place-tools[0m
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-python[0m and container [32mstep-git-source-seldonio-jenkins-x-seldon-core-m6dz2[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-python[0m and container [32mstep-git-source-seldonio-jenkins-x-seldon-core-m6dz2[0m
 {"level":"warn","ts":1567518605.7350082,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
 {"level":"info","ts":1567518608.4374726,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ v0.0.16 in path /workspace/source"}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-python[0m and container [32mstep-git-merge[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-python[0m and container [32mstep-git-merge[0m
 {"level":"info","msg":"Using SHAs from PULL_REFS=master:9056ab0e5d6ba71ae2695a29b2f49315ef580cad","time":"2019-09-03T13:50:10Z"}
 {"level":"warning","msg":"no SHAs to merge, falling back to initial cloned commit","time":"2019-09-03T13:50:10Z"}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-python[0m and container [32mstep-test-python[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-python[0m and container [32mstep-test-python[0m
 make: Entering directory '/workspace/source/python'
 # Protobuf
 cp ../proto/prediction.proto seldon_core/proto/
@@ -7403,10 +7403,10 @@ TOTAL                                       1629    555    66%
 ============================= 157 passed in 41.28s =============================
 make: Leaving directory '/workspace/source/python'
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-python[0m and container [32mstep-source-mkdir-seldonio-jenkins-x-seldon-core-8ngp5[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-python[0m and container [32mstep-source-mkdir-seldonio-jenkins-x-seldon-core-8ngp5[0m
 {"level":"warn","ts":1567518752.546117,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
 {"level":"info","ts":1567518752.5831304,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /pvc/seldon-python/workspace\""}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-bt2zr-2[0m stage [32mseldon-python[0m and container [32mstep-source-copy-seldonio-jenkins-x-seldon-core-mml45[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8ksff-2[0m stage [32mseldon-python[0m and container [32mstep-source-copy-seldonio-jenkins-x-seldon-core-mml45[0m
 {"level":"warn","ts":1567518753.1538591,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
 {"level":"info","ts":1567518754.2027528,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"cp -r /workspace/source/. /pvc/seldon-python/workspace\""}
