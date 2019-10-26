@@ -6,15 +6,15 @@ engine:
     port: 5001
   image:
     pullPolicy: IfNotPresent
-    registry: docker.io    
+    registry: docker.io
     repository: seldonio/engine
-    tag: 0.3.1-SNAPSHOT
+    tag: 0.5.0-SNAPSHOT
+  logMessagesExternally: false
   port: 8000
   prometheus:
     path: prometheus
   securityContext:
     enabled: true
-  #by default use default service account
   serviceAccount:
     name: default
   user: 8888
@@ -22,7 +22,7 @@ image:
   pullPolicy: Always
   registry: docker.io
   repository: seldonio/seldon-core-operator
-  tag: 0.3.1-SNAPSHOT
+  tag: 0.5.0-SNAPSHOT
 istio:
   enabled: false
   gateway: seldon-gateway
@@ -30,10 +30,14 @@ predictiveUnit:
   port: 9000
 rbac:
   create: true
+  configmap:
+    create: true
 serviceAccount:
-  #by default create service account
   create: true
-  name:
+  name: seldon-manager
 usageMetrics:
-  database: http://seldon-core-stats.seldon.io
   enabled: false
+certManager:
+  enabled: false
+webhook:
+  port: 443

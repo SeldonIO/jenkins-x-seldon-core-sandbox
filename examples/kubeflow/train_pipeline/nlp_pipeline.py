@@ -32,13 +32,12 @@ def nlp_pipeline(
       name='my-pvc',
       resource_name="my-pvc",
       modes=["ReadWriteMany"],
-      storage_class="nfs-client",
       size="1Gi"
     )
 
     download_step = dsl.ContainerOp(
         name='data_downloader',
-        image='seldonio/data_downloader:0.1',
+        image='data_downloader:0.1',
         command="python",
         arguments=[
             "/microservice/pipeline_step.py",
@@ -54,7 +53,7 @@ def nlp_pipeline(
 
     clean_step = dsl.ContainerOp(
         name='clean_text',
-        image='seldonio/clean_text_transformer:0.1',
+        image='clean_text_transformer:0.1',
         command="python",
         arguments=[
             "/microservice/pipeline_step.py",
@@ -66,7 +65,7 @@ def nlp_pipeline(
 
     tokenize_step = dsl.ContainerOp(
         name='tokenize',
-        image='seldonio/spacy_tokenizer:0.1',
+        image='spacy_tokenizer:0.1',
         command="python",
         arguments=[
             "/microservice/pipeline_step.py",
@@ -78,7 +77,7 @@ def nlp_pipeline(
 
     vectorize_step = dsl.ContainerOp(
         name='vectorize',
-        image='seldonio/tfidf_vectorizer:0.1',
+        image='tfidf_vectorizer:0.1',
         command="python",
         arguments=[
             "/microservice/pipeline_step.py",
@@ -94,7 +93,7 @@ def nlp_pipeline(
 
     predict_step = dsl.ContainerOp(
         name='predictor',
-        image='seldonio/lr_text_classifier:0.1',
+        image='lr_text_classifier:0.1',
         command="python",
         arguments=[
             "/microservice/pipeline_step.py",
@@ -116,7 +115,6 @@ def nlp_pipeline(
 
     deploy_step = dsl.ResourceOp(
         name="seldondeploy",
-        action="apply",
         k8s_resource=seldon_config,
         attribute_outputs={"name": "{.metadata.name}"})
 

@@ -4,76 +4,42 @@ pipelineConfig:
     pullRequest:
       pipeline:
         agent:
-          image: seldonio/python-builder:0.2
+          image: seldonio/core-builder:0.4
         stages:
-          - name: seldon-python
+          - name: end-to-end
             steps:
-            - name: test-python
-              command: make
-              args: 
-                - -C
-                - python
-                - update_package 
-            - name: test-python
-              command: make
-              args: 
-                - -C
-                - python
-                - install-dev 
-            - name: test-python
-              command: make
-              args: 
-                - -C
-                - python
-                - build_pypi
-            - name: test-python
-              command: make
-              args: 
-                - -C
-                - python
-                - pip-install
-            - name: test-python
-              command: make
-              args: 
-                - -C
-                - python
-                - test
-    release:
-      pipeline:
-        agent:
-          image: seldonio/python-builder:0.2
-        stages:
-          - name: seldon-python
-            steps:
-            - name: test-python
-              command: make
-              args: 
-                - -C
-                - python
-                - update_package 
-            - name: test-python
-              command: make
-              args: 
-                - -C
-                - python
-                - install-dev 
-            - name: test-python
-              command: make
-              args: 
-                - -C
-                - python
-                - build_pypi
-            - name: test-python
-              command: make
-              args: 
-                - -C
-                - python
-                - pip-install
-            - name: test-python
-              command: make
-              args: 
-                - -C
-                - python
-                - test
-
+            - name: test-end-to-end
+              command: cd
+              args:
+              - testing/scripts &&
+              - bash
+              - kind_test_all.sh
+            options:
+              containerOptions:
+                volumeMounts:
+                  - mountPath: /lib/modules
+                    name: modules
+                    readOnly: true
+                  - mountPath: /sys/fs/cgroup
+                    name: cgroup
+                  - name: dind-storage
+                    mountPath: /var/lib/docker
+                resources:
+                  requests:
+                    cpu: 2
+                    memory: 4000Mi
+                securityContext:
+                  privileged: true
+                imagePullPolicy: Always
+              volumes:
+                - name: modules
+                  hostPath:
+                    path: /lib/modules
+                    type: Directory
+                - name: cgroup
+                  hostPath:
+                    path: /sys/fs/cgroup
+                    type: Directory
+                - name: dind-storage
+                  emptyDir: {}
 

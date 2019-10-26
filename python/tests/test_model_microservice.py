@@ -2,12 +2,41 @@ import json
 import numpy as np
 from google.protobuf import json_format
 import base64
-import tensorflow as tf
-from tensorflow.core.framework.tensor_pb2 import TensorProto
+from PIL import Image
+import io
 
 from seldon_core.wrapper import get_rest_microservice, SeldonModelGRPC, get_grpc_server
 from seldon_core.proto import prediction_pb2
 from seldon_core.user_model import SeldonComponent
+from seldon_core.utils import seldon_message_to_json, json_to_seldon_message
+from seldon_core.flask_utils import SeldonMicroserviceException
+from seldon_core.tf_helper import _TF_MISSING
+
+from flask import jsonify
+
+from utils import skipif_tf_missing
+
+if not _TF_MISSING:
+    from tensorflow.core.framework.tensor_pb2 import TensorProto
+    import tensorflow as tf
+
+
+"""
+ Checksum of bytes. Used to check data integrity of binData passed in multipart/form-data request
+
+ Parameters
+ ----------
+  the_bytes
+    Input bytes
+
+  Returns
+  -------
+  the checksum
+"""
+
+
+def rs232_checksum(the_bytes):
+    return b"%02X" % (sum(the_bytes) & 0xFF)
 
 
 class UserObject(SeldonComponent):
@@ -63,6 +92,29 @@ class UserObjectLowLevel(SeldonComponent):
     def predict_grpc(self, request):
         arr = np.array([9, 9])
         datadef = prediction_pb2.DefaultData(
+            tensor=prediction_pb2.Tensor(shape=(2, 1), values=arr)
+        )
+        request = prediction_pb2.SeldonMessage(data=datadef)
+        return request
+
+    def send_feedback_rest(self, request):
+        print("Feedback called")
+
+    def send_feedback_grpc(self, request):
+        print("Feedback called")
+
+class UserObjectLowLevelWithStatusInResponse(SeldonComponent):
+    def __init__(self, metrics_ok=True, ret_nparray=False):
+        self.metrics_ok = metrics_ok
+        self.ret_nparray = ret_nparray
+        self.nparray = np.array([1, 2, 3])
+
+    def predict_rest(self, request):
+        return {"data": {"ndarray": [9, 9]}, "status": {"code": 400, "status": "FAILURE"}}
+
+    def predict_grpc(self, request):
+        arr = np.array([9, 9])
+        datadef = prediction_pb2.DefaultData(
             tensor=prediction_pb2.Tensor(
                 shape=(2, 1),
                 values=arr
@@ -78,6 +130,59 @@ class UserObjectLowLevel(SeldonComponent):
         print("Feedback called")
 
 
+class UserObjectLowLevelWithStatusInResponseWithPredictRaw(SeldonComponent):
+    def __init__(self, check_name):
+        self.check_name=check_name
+
+    def predict_raw(self, msg):
+        msg=json_to_seldon_message(msg)
+        if self.check_name == 'img':
+            file_data=msg.binData
+            img = Image.open(io.BytesIO (file_data))
+            img.verify()
+            return {"meta": seldon_message_to_json(msg.meta),
+                    "data": {"ndarray": [rs232_checksum(file_data).decode('utf-8')]},
+                    "status": {"code": 400, "status": "FAILURE"}}
+        elif self.check_name == 'txt':
+            file_data=msg.binData
+            return {"meta": seldon_message_to_json(msg.meta),
+                    "data": {"ndarray": [file_data.decode('utf-8')]},
+                    "status": {"code": 400, "status": "FAILURE"}}
+        elif self.check_name == 'strData':
+            file_data=msg.strData
+            return {"meta": seldon_message_to_json(msg.meta),
+                    "data": {"ndarray": [file_data]},
+                    "status": {"code": 400, "status": "FAILURE"}}
+
+
+class UserObjectLowLevelWithPredictRaw(SeldonComponent):
+    def __init__(self, check_name):
+        self.check_name = check_name
+
+    def predict_raw(self, msg):
+        msg = json_to_seldon_message(msg)
+        if self.check_name == "img":
+            file_data = msg.binData
+            img = Image.open(io.BytesIO(file_data))
+            img.verify()
+            return {
+                "meta": seldon_message_to_json(msg.meta),
+                "data": {"ndarray": [rs232_checksum(file_data).decode("utf-8")]},
+            }
+        elif self.check_name == "txt":
+            file_data = msg.binData
+            return {
+                "meta": seldon_message_to_json(msg.meta),
+                "data": {"ndarray": [file_data.decode("utf-8")]},
+            }
+        elif self.check_name == "strData":
+            file_data = msg.strData
+            return {
+                "meta": seldon_message_to_json(msg.meta),
+                "data": {"ndarray": [file_data]},
+            }
+
+
 class UserObjectLowLevelGrpc(SeldonComponent):
     def __init__(self, metrics_ok=True, ret_nparray=False):
         self.metrics_ok = metrics_ok
@@ -87,10 +192,7 @@ class UserObjectLowLevelGrpc(SeldonComponent):
     def predict_grpc(self, request):
         arr = np.array([9, 9])
         datadef = prediction_pb2.DefaultData(
-            tensor=prediction_pb2.Tensor(
-                shape=(2, 1),
-                values=arr
-            )
+            tensor=prediction_pb2.Tensor(shape=(2, 1), values=arr)
         )
         request = prediction_pb2.SeldonMessage(data=datadef)
         return request
@@ -117,6 +219,24 @@ def test_model_ok():
     assert j["data"]["ndarray"] == [[1.0, 2.0]]
 
 
+def test_model_puid_ok():
+    user_object = UserObject()
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    rv = client.get(
+        '/predict?json={"meta":{"puid":"123"},"data":{"names":["a","b"],"ndarray":[[1,2]]}}'
+    )
+    j = json.loads(rv.data)
+    print(j)
+    assert rv.status_code == 200
+    assert j["meta"]["tags"] == {"mytag": 1}
+    assert j["meta"]["metrics"][0]["key"] == user_object.metrics()[0]["key"]
+    assert j["meta"]["metrics"][0]["value"] == user_object.metrics()[0]["value"]
+    assert j["data"]["names"] == ["t:0", "t:1"]
+    assert j["data"]["ndarray"] == [[1.0, 2.0]]
+    assert j["meta"]["puid"] == "123"
+
+
 def test_model_lowlevel_ok():
     user_object = UserObjectLowLevel()
     app = get_rest_microservice(user_object)
@@ -128,11 +248,106 @@ def test_model_lowlevel_ok():
     assert j["data"]["ndarray"] == [9, 9]
 
 
+def test_model_lowlevel_multi_form_data_text_file_ok():
+    user_object = UserObjectLowLevelWithPredictRaw("txt")
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    rv = client.post(
+        "/predict",
+        data={
+            "meta": '{"puid":"1234"}',
+            "binData": (f"./tests/resources/test.txt", "test.txt"),
+        },
+        content_type="multipart/form-data",
+    )
+    j = json.loads(rv.data)
+    assert rv.status_code == 200
+    assert j["meta"]["puid"] == "1234"
+    assert (
+        j["data"]["ndarray"][0]
+        == "this is test file for testing multipart/form-data input\n"
+    )
+
+
+def test_model_lowlevel_multi_form_data_img_file_ok():
+    user_object = UserObjectLowLevelWithPredictRaw("img")
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    rv = client.post(
+        "/predict",
+        data={
+            "meta": '{"puid":"1234"}',
+            "binData": (f"./tests/resources/test.png", "test.png"),
+        },
+        content_type="multipart/form-data",
+    )
+    j = json.loads(rv.data)
+    assert rv.status_code == 200
+    assert j["meta"]["puid"] == "1234"
+    with open("./tests/resources/test.png", "rb") as f:
+        img_data = f.read()
+    assert j["data"]["ndarray"][0] == rs232_checksum(img_data).decode("utf-8")
+
+
+def test_model_lowlevel_multi_form_data_strData_ok():
+    user_object = UserObjectLowLevelWithPredictRaw("strData")
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    rv = client.post(
+        "/predict",
+        data={
+            "meta": '{"puid":"1234"}',
+            "strData": (f"./tests/resources/test.txt", "test.txt"),
+        },
+        content_type="multipart/form-data",
+    )
+    j = json.loads(rv.data)
+    assert rv.status_code == 200
+    assert j["meta"]["puid"] == "1234"
+    assert (
+        j["data"]["ndarray"][0]
+        == "this is test file for testing multipart/form-data input\n"
+    )
+
+
+
+def test_model_lowlevel_multi_form_data_strData_non200status():
+    user_object = UserObjectLowLevelWithStatusInResponseWithPredictRaw('strData')
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    rv = client.post('/predict',data={"meta":'{"puid":"1234"}',"strData":(f'./tests/resources/test.txt','test.txt')},content_type='multipart/form-data')
+    j = json.loads(rv.data)
+    assert rv.status_code == 400
+    assert j["meta"]["puid"] == "1234"
+    assert j["data"]["ndarray"][0] == "this is test file for testing multipart/form-data input\n"
+
+
+def test_model_multi_form_data_ok():
+    user_object = UserObject()
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    rv = client.post(
+        "/predict",
+        data={"data": '{"names":["a","b"],"ndarray":[[1,2]]}'},
+        content_type="multipart/form-data",
+    )
+    j = json.loads(rv.data)
+    print(j)
+    assert rv.status_code == 200
+    assert j["meta"]["tags"] == {"mytag": 1}
+    assert j["meta"]["metrics"][0]["key"] == user_object.metrics()[0]["key"]
+    assert j["meta"]["metrics"][0]["value"] == user_object.metrics()[0]["value"]
+    assert j["data"]["names"] == ["t:0", "t:1"]
+    assert j["data"]["ndarray"] == [[1.0, 2.0]]
+
+
 def test_model_feedback_ok():
     user_object = UserObject()
     app = get_rest_microservice(user_object)
     client = app.test_client()
-    rv = client.get('/send-feedback?json={"request":{"data":{"ndarray":[]}},"reward":1.0}')
+    rv = client.get(
+        '/send-feedback?json={"request":{"data":{"ndarray":[]}},"reward":1.0}'
+    )
     j = json.loads(rv.data)
     print(j)
     assert rv.status_code == 200
@@ -142,33 +357,43 @@ def test_model_feedback_lowlevel_ok():
     user_object = UserObjectLowLevel()
     app = get_rest_microservice(user_object)
     client = app.test_client()
-    rv = client.get('/send-feedback?json={"request":{"data":{"ndarray":[]}},"reward":1.0}')
+    rv = client.get(
+        '/send-feedback?json={"request":{"data":{"ndarray":[]}},"reward":1.0}'
+    )
     j = json.loads(rv.data)
     print(j)
     assert rv.status_code == 200
 
 
+def test_model_non200status_lowlevel():
+    user_object = UserObjectLowLevelWithStatusInResponse()
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    rv = client.get('/predict?json={"request":{"data":{"ndarray":[]}},"reward":1.0}')
+    j = json.loads(rv.data)
+    print(j)
+    assert rv.status_code == 400
+
+
+@skipif_tf_missing
 def test_model_tftensor_ok():
     user_object = UserObject()
     app = get_rest_microservice(user_object)
     client = app.test_client()
     arr = np.array([1, 2])
-    datadef = prediction_pb2.DefaultData(
-        tftensor=tf.make_tensor_proto(arr)
-    )
+    datadef = prediction_pb2.DefaultData(tftensor=tf.make_tensor_proto(arr))
     request = prediction_pb2.SeldonMessage(data=datadef)
     jStr = json_format.MessageToJson(request)
-    rv = client.get('/predict?json=' + jStr)
+    rv = client.get("/predict?json=" + jStr)
     j = json.loads(rv.data)
     print(j)
     assert rv.status_code == 200
     assert j["meta"]["tags"] == {"mytag": 1}
     assert j["meta"]["metrics"][0]["key"] == user_object.metrics()[0]["key"]
     assert j["meta"]["metrics"][0]["value"] == user_object.metrics()[0]["value"]
-    assert 'tftensor' in j['data']
+    assert "tftensor" in j["data"]
     tfp = TensorProto()
-    json_format.ParseDict(j['data'].get("tftensor"),
-                          tfp, ignore_unknown_fields=False)
+    json_format.ParseDict(j["data"].get("tftensor"), tfp, ignore_unknown_fields=False)
     arr2 = tf.make_ndarray(tfp)
     assert np.array_equal(arr, arr2)
 
@@ -177,8 +402,7 @@ def test_model_ok_with_names():
     user_object = UserObject()
     app = get_rest_microservice(user_object)
     client = app.test_client()
-    rv = client.get(
-        '/predict?json={"data":{"names":["a","b"],"ndarray":[[1,2]]}}')
+    rv = client.get('/predict?json={"data":{"names":["a","b"],"ndarray":[[1,2]]}}')
     j = json.loads(rv.data)
     assert rv.status_code == 200
     assert j["meta"]["tags"] == {"mytag": 1}
@@ -191,13 +415,9 @@ def test_model_bin_data():
     app = get_rest_microservice(user_object)
     client = app.test_client()
     bdata = b"123"
-    bdata_base64 = base64.b64encode(bdata).decode('utf-8')
+    bdata_base64 = base64.b64encode(bdata).decode("utf-8")
     rv = client.get('/predict?json={"binData":"' + bdata_base64 + '"}')
     j = json.loads(rv.data)
-    sm = prediction_pb2.SeldonMessage()
-    # Check we can parse response
-    assert sm == json_format.Parse(rv.data, sm, ignore_unknown_fields=False)
-    print(j)
     assert rv.status_code == 200
     assert j["binData"] == bdata_base64
     assert j["meta"]["tags"] == {"mytag": 1}
@@ -209,8 +429,8 @@ def test_model_bin_data_nparray():
     user_object = UserObject(ret_nparray=True)
     app = get_rest_microservice(user_object)
     client = app.test_client()
-    encoded = base64.b64encode(b"1234")
-    rv = client.get('/predict?json={"binData":"' + str(encoded) + '"}')
+    encoded = base64.b64encode(b"1234").decode("utf-8")
+    rv = client.get('/predict?json={"binData":"' + encoded + '"}')
     j = json.loads(rv.data)
     print(j)
     assert rv.status_code == 200
@@ -253,7 +473,7 @@ def test_model_no_json():
     app = get_rest_microservice(user_object)
     client = app.test_client()
     uo = UserObject()
-    rv = client.get('/predict?')
+    rv = client.get("/predict?")
     j = json.loads(rv.data)
     print(j)
     assert rv.status_code == 400
@@ -269,6 +489,21 @@ def test_model_bad_metrics():
     assert rv.status_code == 400
 
 
+def test_model_error_status_code():
+    class ErrorUserObject:
+        def predict(self, X, features_names, **kwargs):
+            raise SeldonMicroserviceException("foo", status_code=403)
+
+    user_object = ErrorUserObject()
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    uo = UserObject()
+    rv = client.get('/predict?json={"strData":"my data"}')
+    j = json.loads(rv.data)
+    print(j)
+    assert rv.status_code == 403
+
+
 def test_model_gets_meta():
     user_object = UserObject(ret_meta=True)
     app = get_rest_microservice(user_object)
@@ -282,15 +517,20 @@ def test_model_gets_meta():
     assert j["meta"]["metrics"][0]["value"] == user_object.metrics()[0]["value"]
 
 
+def test_model_seldon_json_ok():
+    user_object = UserObject()
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    rv = client.get("/seldon.json")
+    assert rv.status_code == 200
+
+
 def test_proto_ok():
     user_object = UserObject()
     app = SeldonModelGRPC(user_object)
     arr = np.array([1, 2])
     datadef = prediction_pb2.DefaultData(
-        tensor=prediction_pb2.Tensor(
-            shape=(2, 1),
-            values=arr
-        )
+        tensor=prediction_pb2.Tensor(shape=(2, 1), values=arr)
     )
     request = prediction_pb2.SeldonMessage(data=datadef)
     resp = app.Predict(request, None)
@@ -309,10 +549,7 @@ def test_proto_lowlevel():
     app = SeldonModelGRPC(user_object)
     arr = np.array([1, 2])
     datadef = prediction_pb2.DefaultData(
-        tensor=prediction_pb2.Tensor(
-            shape=(2, 1),
-            values=arr
-        )
+        tensor=prediction_pb2.Tensor(shape=(2, 1), values=arr)
     )
     request = prediction_pb2.SeldonMessage(data=datadef)
     resp = app.Predict(request, None)
@@ -328,10 +565,7 @@ def test_proto_feedback():
     app = SeldonModelGRPC(user_object)
     arr = np.array([1, 2])
     datadef = prediction_pb2.DefaultData(
-        tensor=prediction_pb2.Tensor(
-            shape=(2, 1),
-            values=arr
-        )
+        tensor=prediction_pb2.Tensor(shape=(2, 1), values=arr)
     )
     request = prediction_pb2.SeldonMessage(data=datadef)
     feedback = prediction_pb2.Feedback(request=request, reward=1.0)
@@ -343,23 +577,19 @@ def test_proto_feedback_custom():
     app = SeldonModelGRPC(user_object)
     arr = np.array([1, 2])
     datadef = prediction_pb2.DefaultData(
-        tensor=prediction_pb2.Tensor(
-            shape=(2, 1),
-            values=arr
-        )
+        tensor=prediction_pb2.Tensor(shape=(2, 1), values=arr)
     )
     request = prediction_pb2.SeldonMessage(data=datadef)
     feedback = prediction_pb2.Feedback(request=request, reward=1.0)
     resp = app.SendFeedback(feedback, None)
 
 
+@skipif_tf_missing
 def test_proto_tftensor_ok():
     user_object = UserObject()
     app = SeldonModelGRPC(user_object)
     arr = np.array([1, 2])
-    datadef = prediction_pb2.DefaultData(
-        tftensor=tf.make_tensor_proto(arr)
-    )
+    datadef = prediction_pb2.DefaultData(tftensor=tf.make_tensor_proto(arr))
     request = prediction_pb2.SeldonMessage(data=datadef)
     resp = app.Predict(request, None)
     jStr = json_format.MessageToJson(resp)
@@ -404,10 +634,7 @@ def test_proto_gets_meta():
     app = SeldonModelGRPC(user_object)
     arr = np.array([1, 2])
     datadef = prediction_pb2.DefaultData(
-        tensor=prediction_pb2.Tensor(
-            shape=(2, 1),
-            values=arr
-        )
+        tensor=prediction_pb2.Tensor(shape=(2, 1), values=arr)
     )
     meta = prediction_pb2.Meta()
     metaJson = {"puid": "abc"}
@@ -422,3 +649,69 @@ def test_proto_gets_meta():
     assert j["meta"]["metrics"][0]["value"] == user_object.metrics()[0]["value"]
     assert j["data"]["tensor"]["shape"] == [2, 1]
     assert j["data"]["tensor"]["values"] == [1, 2]
+
+
+def test_unimplemented_predict_raw_on_seldon_component():
+    class CustomSeldonComponent(SeldonComponent):
+        def predict(self, X, features_names, **kwargs):
+            return X * 2
+
+    user_object = CustomSeldonComponent()
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    rv = client.get('/predict?json={"data":{"names":["a","b"],"ndarray":[[1,2]]}}')
+    j = json.loads(rv.data)
+
+    print(j)
+    assert rv.status_code == 200
+    assert j["data"]["ndarray"] == [[2.0, 4.0]]
+
+
+def test_unimplemented_predict_raw():
+    class CustomObject(object):
+        def predict(self, X, features_names, **kwargs):
+            return X * 2
+
+    user_object = CustomObject()
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    rv = client.get('/predict?json={"data":{"names":["a","b"],"ndarray":[[1,2]]}}')
+    j = json.loads(rv.data)
+
+    print(j)
+    assert rv.status_code == 200
+    assert j["data"]["ndarray"] == [[2.0, 4.0]]
+
+
+def test_unimplemented_feedback_raw_on_seldon_component():
+    class CustomSeldonComponent(SeldonComponent):
+        def feedback(self, features, feature_names, reward, truth):
+            print("Feedback called")
+
+    user_object = CustomSeldonComponent()
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    rv = client.get(
+        '/send-feedback?json={"request":{"data":{"ndarray":[]}},"reward":1.0}'
+    )
+    j = json.loads(rv.data)
+
+    print(j)
+    assert rv.status_code == 200
+
+
+def test_unimplemented_feedback_raw():
+    class CustomObject(object):
+        def feedback(self, features, feature_names, reward, truth):
+            print("Feedback called")
+
+    user_object = CustomObject()
+    app = get_rest_microservice(user_object)
+    client = app.test_client()
+    rv = client.get(
+        '/send-feedback?json={"request":{"data":{"ndarray":[]}},"reward":1.0}'
+    )
+    j = json.loads(rv.data)
+
+    print(j)
+    assert rv.status_code == 200

@@ -2,10 +2,8 @@ approvers:
 - axsaucedo
 - gsunner
 - cliveseldon
-- jklaise
 - ryandawsonuk
-- gipster
-- arnaudvl
+- adriangonz
 reviewers:
 - axsaucedo
 - gsunner
@@ -14,3 +12,5 @@ reviewers:
 - ryandawsonuk
 - gipster
 - arnaudvl
+- adriangonz
+- phsiao

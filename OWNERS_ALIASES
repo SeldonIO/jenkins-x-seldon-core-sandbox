@@ -1,6 +1,9 @@
 aliases:
-- as@gmail.com
-best-approvers:
-- as@gmail.com
-best-reviewers:
-- as@gmail.com
+  team:
+    - axsaucedo
+    - gsunner
+    - cliveseldon
+    - jklaise
+    - ryandawsonuk
+    - gipster
+    - arnaudvl
