@@ -13,4 +13,4 @@ pipelineConfig:
       setVersion:
         steps:
         - name: next-version
-          sh: ls /workspace/source/VERSION
+          sh: touch /workspace/source/VERSION
