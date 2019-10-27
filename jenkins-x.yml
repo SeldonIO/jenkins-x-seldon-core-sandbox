@@ -10,11 +10,7 @@ pipelineConfig:
           steps:
           - command: ls
             name: test-end-to-end
-      postBuild:
-        replace: true
-        steps:
-        - command: echo "hello world"
       setVersion:
         steps:
         - name: next-version
-          sh: echo hello
+          sh: ls /workspace/source/VERSION
