@@ -10,10 +10,6 @@ pipelineConfig:
           steps:
           - command: ls
             name: test-end-to-end
-      setBuildVersion:
-        steps:
-        - name: next-version
-          sh: echo "ignoring..."
       setVersion:
         steps:
         - name: next-version
