@@ -18,4 +18,8 @@ pipelineConfig:
         steps:
         - name: next-version
           sh: echo "ignoring..."
+        - name: set-version
+          sh: echo "ignoring..."
+        - name: tag-version
+          sh: echo "ignoring..."
 
