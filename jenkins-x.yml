@@ -13,4 +13,4 @@ pipelineConfig:
       setVersion:
         steps:
         - name: next-version
-          sh: touch /workspace/source/VERSION
+          sh: echo "v0.0.20" > /workspace/source/VERSION
