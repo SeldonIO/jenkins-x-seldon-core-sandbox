@@ -1,43 +1,32 @@
-Step: step-credential-initializer-74bzh:
 
-{"level":"warn","ts":1566064032.0921917,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
-{"level":"info","ts":1566064032.0925937,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
-Step: step-working-dir-initializer-z6d8b:
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-8z49p-4[0m stage [32mmeta-pipeline[0m and container [32mstep-credential-initializer-8kkvg[0m
+{"level":"warn","ts":1572187713.2914042,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1572187713.2954214,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
 
-{"level":"warn","ts":1566064033.6321375,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
-{"level":"info","ts":1566064033.639294,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
-Step: step-place-tools:
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-8z49p-4[0m stage [32mmeta-pipeline[0m and container [32mstep-working-dir-initializer-cs8xg[0m
+{"level":"warn","ts":1572187714.2668025,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1572187714.2864137,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
 
-Step: step-git-source-meta-seldonio-jenkins-x-seldon-84gpx:
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-8z49p-4[0m stage [32mmeta-pipeline[0m and container [32mstep-place-tools[0m
 
-{"level":"warn","ts":1566064039.6783476,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
-{"level":"info","ts":1566064042.018615,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ 75ad3236b2b9d17e92ef93e064cad3a237ecf58e in path /workspace/source"}
-Step: step-git-merge:
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-8z49p-4[0m stage [32mmeta-pipeline[0m and container [32mstep-git-source-meta-seldonio-jenkins-x-seldon-kjxpz[0m
+{"level":"warn","ts":1572187720.3235457,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1572187723.863933,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ ffe13e29d3e8370753253be4edeaab44f33530df in path /workspace/source"}
 
-{"level":"info","msg":"Using SHAs from PULL_REFS=master:75ad3236b2b9d17e92ef93e064cad3a237ecf58e","time":"2019-08-17T17:47:23Z"}
-{"level":"warning","msg":"no SHAs to merge, falling back to initial cloned commit","time":"2019-08-17T17:47:23Z"}
-Step: step-merge-pull-refs:
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-8z49p-4[0m stage [32mmeta-pipeline[0m and container [32mstep-git-merge[0m
+Using SHAs from PULL_REFS=master:ffe13e29d3e8370753253be4edeaab44f33530df
+WARNING: no SHAs to merge, falling back to initial cloned commit
 
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-8z49p-4[0m stage [32mmeta-pipeline[0m and container [32mstep-merge-pull-refs[0m
 SKIP merge-pull-refs: Nothing to merge
-Step: step-create-effective-pipeline:
 
-{"level":"info","msg":"Deleting and cloning the Jenkins X versions repo","time":"2019-08-17T17:47:25Z"}
-{"level":"info","msg":"Cloning the Jenkins X versions repo https://github.com/jenkins-x/jenkins-x-versions.git with ref refs/heads/master to /builder/home/.**/jenkins-x-versions","time":"2019-08-17T17:47:25Z"}
-{"level":"info","msg":"Effective pipeline written to jenkins-x-release-effective.yml","time":"2019-08-17T17:47:28Z"}
-Step: step-create-tekton-crds:
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-8z49p-4[0m stage [32mmeta-pipeline[0m and container [32mstep-create-effective-pipeline[0m
+Effective pipeline written to jenkins-x-release-effective.yml
 
-{"level":"info","msg":"running command: ** step next-version --use-git-tag-only --tag","time":"2019-08-17T17:47:29Z"}
-{"level":"info","msg":"created new version: 0.0.9 and written to file: ./VERSION","time":"2019-08-17T17:47:30Z"}
-{"level":"info","msg":"Updating chart version in charts/jenkins-x-seldon-core-sandbox/Chart.yaml to 0.0.9","time":"2019-08-17T17:47:30Z"}
-{"level":"info","msg":"Updating repository in charts/jenkins-x-seldon-core-sandbox/values.yaml to klawcluster.azurecr.io/seldonio/jenkins-x-seldon-core-sandbox","time":"2019-08-17T17:47:30Z"}
-{"level":"info","msg":"Updating tag in charts/jenkins-x-seldon-core-sandbox/values.yaml to 0.0.9","time":"2019-08-17T17:47:30Z"}
-{"level":"info","msg":"Tag v0.0.9 created and pushed to remote origin","time":"2019-08-17T17:47:35Z"}
-{"level":"info","msg":"","time":"2019-08-17T17:47:35Z"}
-{"level":"info","msg":"PipelineActivity for SeldonIO-jenkins-x-seldon-core-sandbox-master-4","time":"2019-08-17T17:47:35Z"}
-{"level":"info","msg":"Applying changes ","time":"2019-08-17T17:47:35Z"}
-{"level":"info","msg":"upserted PipelineResource seldonio-jenkins-x-seldon-core for the git repository https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git and branch master","time":"2019-08-17T17:47:35Z"}
-{"level":"info","msg":"upserted Task seldonio-jenkins-x-seldon-core-c5lzb-seldon-python-4","time":"2019-08-17T17:47:35Z"}
-{"level":"info","msg":"upserted Task seldonio-jenkins-x-seldon-core-c5lzb-seldon-engine-4","time":"2019-08-17T17:47:35Z"}
-{"level":"info","msg":"upserted Pipeline seldonio-jenkins-x-seldon-core-c5lzb-4","time":"2019-08-17T17:47:35Z"}
-{"level":"info","msg":"created PipelineRun seldonio-jenkins-x-seldon-core-c5lzb-4","time":"2019-08-17T17:47:35Z"}
-{"level":"info","msg":"created PipelineStructure seldonio-jenkins-x-seldon-core-c5lzb-4","time":"2019-08-17T17:47:35Z"}
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-8z49p-4[0m stage [32mmeta-pipeline[0m and container [32mstep-create-tekton-crds[0m
+running command: echo hello
+
+error: failed to set the version on release pipelines: failed to read file /workspace/source/VERSION
+hello
+[31m
+Pipeline failed on stage 'meta-pipeline' : container 'step-create-tekton-crds'. The execution of the pipeline has stopped.[0m
