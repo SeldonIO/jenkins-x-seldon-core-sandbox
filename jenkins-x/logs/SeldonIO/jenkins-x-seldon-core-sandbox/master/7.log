@@ -1,42 +1,32 @@
-Step: step-credential-initializer-74w2l:
 
-{"level":"warn","ts":1566073856.1755495,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
-{"level":"info","ts":1566073856.1759691,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
-Step: step-working-dir-initializer-h792s:
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-credential-initializer-kwmmv[0m
+{"level":"warn","ts":1572188329.4099834,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1572188329.4111228,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
 
-{"level":"warn","ts":1566073857.0826716,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
-{"level":"info","ts":1566073857.083744,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
-Step: step-place-tools:
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-working-dir-initializer-rswjz[0m
+{"level":"warn","ts":1572188330.3730562,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1572188330.3764887,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
 
-Step: step-git-source-meta-seldonio-jenkins-x-seldon-sf2r5:
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-place-tools[0m
 
-{"level":"warn","ts":1566073863.1327672,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
-{"level":"info","ts":1566073865.3445673,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ 546203ede35952ea218815b0544017af37e0b65e in path /workspace/source"}
-Step: step-git-merge:
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-git-source-meta-seldonio-jenkins-x-seldon-2xcv6[0m
+{"level":"warn","ts":1572188335.4517817,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1572188338.1098275,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ 29519742480451987ffd5e4abd20157637aa6aac in path /workspace/source"}
 
-{"level":"info","msg":"Using SHAs from PULL_REFS=master:546203ede35952ea218815b0544017af37e0b65e","time":"2019-08-17T20:31:06Z"}
-{"level":"warning","msg":"no SHAs to merge, falling back to initial cloned commit","time":"2019-08-17T20:31:06Z"}
-Step: step-merge-pull-refs:
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-git-merge[0m
+Using SHAs from PULL_REFS=master:29519742480451987ffd5e4abd20157637aa6aac
+WARNING: no SHAs to merge, falling back to initial cloned commit
 
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-merge-pull-refs[0m
 SKIP merge-pull-refs: Nothing to merge
-Step: step-create-effective-pipeline:
 
-{"level":"info","msg":"Deleting and cloning the Jenkins X versions repo","time":"2019-08-17T20:31:07Z"}
-{"level":"info","msg":"Cloning the Jenkins X versions repo https://github.com/jenkins-x/jenkins-x-versions.git with ref refs/heads/master to /builder/home/.**/jenkins-x-versions","time":"2019-08-17T20:31:07Z"}
-{"level":"info","msg":"Effective pipeline written to jenkins-x-release-effective.yml","time":"2019-08-17T20:31:10Z"}
-Step: step-create-tekton-crds:
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-create-effective-pipeline[0m
+Effective pipeline written to jenkins-x-release-effective.yml
 
-{"level":"info","msg":"running command: ** step next-version --use-git-tag-only --tag","time":"2019-08-17T20:31:12Z"}
-{"level":"info","msg":"created new version: 0.0.11 and written to file: ./VERSION","time":"2019-08-17T20:31:13Z"}
-{"level":"info","msg":"Updating chart version in charts/jenkins-x-seldon-core-sandbox/Chart.yaml to 0.0.11","time":"2019-08-17T20:31:13Z"}
-{"level":"info","msg":"Updating repository in charts/jenkins-x-seldon-core-sandbox/values.yaml to klawcluster.azurecr.io/seldonio/jenkins-x-seldon-core-sandbox","time":"2019-08-17T20:31:13Z"}
-{"level":"info","msg":"Updating tag in charts/jenkins-x-seldon-core-sandbox/values.yaml to 0.0.11","time":"2019-08-17T20:31:13Z"}
-error: Have you set up a git credential helper? See https://help.github.com/articles/caching-your-github-password-in-git/
-: git output: To https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git
- ! [rejected]        v0.0.11 -> v0.0.11 (already exists)
-error: failed to push some refs to 'https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git'
-hint: Updates were rejected because the tag already exists in the remote.: failed to run 'git push origin v0.0.11' command in directory '', output: 'To https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git
- ! [rejected]        v0.0.11 -> v0.0.11 (already exists)
-error: failed to push some refs to 'https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git'
-hint: Updates were rejected because the tag already exists in the remote.'
-error: failed to set the version on release pipelines: failed to run '/bin/sh -c ** step next-version --use-git-tag-only --tag' command in directory '/workspace/source', output: ''
+Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-create-tekton-crds[0m
+running command: touch /workspace/source/VERSION
+
+WARNING: versions file /workspace/source/VERSION is empty!
+error: failed to set the version on release pipelines: failed to read file /workspace/source/VERSION
+[31m
+Pipeline failed on stage 'meta-pipeline' : container 'step-create-tekton-crds'. The execution of the pipeline has stopped.[0m
