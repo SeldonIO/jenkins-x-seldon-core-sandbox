@@ -10,12 +10,6 @@ pipelineConfig:
           steps:
           - sh: echo "IT WORKED"
             name: test-end-to-end
-        setVersion:
-          steps:
-          - name: next-version
-            sh: echo "ignoring..."
-          - name: set-version
-            sh: echo "ignoring..."
-          - name: tag-version
-            sh: echo "ignoring..."
+          - sh: exit 1
+            name: fail-to-avoid-set-tag
 
