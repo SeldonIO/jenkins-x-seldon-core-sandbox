@@ -8,7 +8,7 @@ pipelineConfig:
         stages:
         - name: end-to-end
           steps:
-          - command: ls
+          - sh: echo "IT WORKED"
             name: test-end-to-end
       setVersion:
         steps:
