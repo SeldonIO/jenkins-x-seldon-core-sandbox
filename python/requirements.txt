@@ -12,7 +12,7 @@ Flask-OpenTracing>=1.1.0,<1.2.0
 opentracing>=2.2.0,<2.3.0
 jaeger-client>=4.1.0,<4.2.0
 grpcio-opentracing
-Pillow==6.0.0
+Pillow==6.2.0
 pyyaml
 minio >= 4.0.9
 google-cloud-storage >= 1.16.0
