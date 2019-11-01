@@ -2,14 +2,6 @@ buildPack: none
 pipelineConfig:
   pipelines:
     release:
-      setVersion:
-        steps:
-        - name: next-version
-          sh: echo "ignoring..."
-        - name: set-version
-          sh: echo "ignoring..."
-        - name: tag-version
-          sh: echo "ignoring..."
       pipeline:
         agent:
           image: seldonio/core-builder:0.4
@@ -18,4 +10,12 @@ pipelineConfig:
           steps:
           - command: ls
             name: test-end-to-end
+      setVersion:
+        steps:
+        - name: next-version
+          sh: echo "ignoring..."
+        - name: set-version
+          sh: echo "ignoring..."
+        - name: tag-version
+          sh: echo "ignoring..."
 
