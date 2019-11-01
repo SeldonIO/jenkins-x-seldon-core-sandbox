@@ -1,0 +1,25 @@
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8wkhn-16[0m stage [32mend-to-end[0m and container [32mstep-credential-initializer-c7sxr[0m
+{"level":"warn","ts":1572628385.3049068,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1572628385.3060606,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8wkhn-16[0m stage [32mend-to-end[0m and container [32mstep-working-dir-initializer-mkpgg[0m
+{"level":"warn","ts":1572628386.2754524,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1572628386.277815,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8wkhn-16[0m stage [32mend-to-end[0m and container [32mstep-place-tools[0m
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8wkhn-16[0m stage [32mend-to-end[0m and container [32mstep-git-source-seldonio-jenkins-x-seldon-core-jv86x[0m
+{"level":"warn","ts":1572628392.528872,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1572628395.4180944,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ v0.0.21 in path /workspace/source"}
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8wkhn-16[0m stage [32mend-to-end[0m and container [32mstep-git-merge[0m
+Using SHAs from PULL_REFS=master:502080afa4d88b5c3bc5a33a863220ee4f5a96e2
+WARNING: no SHAs to merge, falling back to initial cloned commit
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8wkhn-16[0m stage [32mend-to-end[0m and container [32mstep-test-end-to-end[0m
+IT WORKED
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-8wkhn-16[0m stage [32mend-to-end[0m and container [32mstep-fail-to-avoid-set-tag[0m
+[31m
+Pipeline failed on stage 'end-to-end' : container 'step-fail-to-avoid-set-tag'. The execution of the pipeline has stopped.[0m
