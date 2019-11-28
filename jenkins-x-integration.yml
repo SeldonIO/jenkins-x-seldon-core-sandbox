@@ -35,7 +35,6 @@ pipelineConfig:
                 - name: modules
                   hostPath:
                     path: /lib/modules
-                    type: Directory
                 - name: cgroup
                   hostPath:
                     path: /sys/fs/cgroup
