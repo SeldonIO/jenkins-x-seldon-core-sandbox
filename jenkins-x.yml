@@ -1,15 +1,81 @@
 buildPack: none
 pipelineConfig:
   pipelines:
+    pullRequest:
+      pipeline:
+        agent:
+          image: seldonio/core-builder:0.4
+        stages:
+        - name: build-and-test
+          parallel:
+          - name: test-python
+            agent:
+              image: seldonio/python-builder:0.2
+            steps:
+            - name: test-python
+              command: make
+              args:
+              - -C python
+              - update_package
+              - install_dev
+              - test
+          - name: seldon-engine
+            steps:
+            - args:
+              - -C engine
+              - -f Makefile.ci
+              - build_jar
+              command: make
+              name: test-engine
     release:
       pipeline:
         agent:
           image: seldonio/core-builder:0.4
         stages:
-        - name: end-to-end
-          steps:
-          - sh: echo "IT WORKED"
-            name: test-end-to-end
-          - sh: exit 1
-            name: fail-to-avoid-set-tag
+          - name: build-and-push
+            steps:
+            - name: build-and-push-images
+              command: bash
+              args:
+              - ./ci_build_and_push_images.sh
+            - name: exit-with-error-to-avoid-auto-changelog
+              command: exit
+              args:
+              - "1"
+            options:
+              containerOptions:
+                volumeMounts:
+                  - mountPath: /lib/modules
+                    name: modules
+                    readOnly: true
+                  - mountPath: /sys/fs/cgroup
+                    name: cgroup
+                  - name: dind-storage
+                    mountPath: /var/lib/docker
+                  - mountPath: /builder/home/.docker
+                    name: jenkins-docker-config-volume
+                resources:
+                  requests:
+                    cpu: 1
+                    memory: 2000Mi
+                securityContext:
+                  privileged: true
+                imagePullPolicy: Always
+              volumes:
+                - name: modules
+                  hostPath:
+                    path: /lib/modules
+                    type: Directory
+                - name: cgroup
+                  hostPath:
+                    path: /sys/fs/cgroup
+                    type: Directory
+                - name: dind-storage
+                  emptyDir: {}
+                - name: jenkins-docker-config-volume
+                  secret:
+                    items:
+                    - key: config.json
+                      path: config.json
+                    secretName: jenkins-docker-cfg
 
