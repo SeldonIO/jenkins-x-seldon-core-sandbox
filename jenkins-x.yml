@@ -48,3 +48,4 @@ pipelineConfig:
             steps:
             - name: build-and-push-images
               command: echo "hello"
+
