@@ -34,6 +34,10 @@ pipelineConfig:
               command: make
               name: test-engine
     release:
+      setVersion:
+        steps:
+        - name: skip-tag
+          command: echo "skipping tag"
       pipeline:
         agent:
           image: seldonio/core-builder:0.4
