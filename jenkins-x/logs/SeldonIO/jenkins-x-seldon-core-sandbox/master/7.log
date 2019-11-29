@@ -1,32 +1,20 @@
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-credential-initializer-kwmmv[0m
-{"level":"warn","ts":1572188329.4099834,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
-{"level":"info","ts":1572188329.4111228,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-c6xvq-7[0m stage [32mbuild-and-push[0m and container [32mstep-credential-initializer-98wvw[0m
+{"level":"warn","ts":1575039998.9801881,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1575039998.9810357,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-working-dir-initializer-rswjz[0m
-{"level":"warn","ts":1572188330.3730562,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
-{"level":"info","ts":1572188330.3764887,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-c6xvq-7[0m stage [32mbuild-and-push[0m and container [32mstep-working-dir-initializer-bjtxc[0m
+{"level":"warn","ts":1575040000.0063615,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1575040000.010005,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-place-tools[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-c6xvq-7[0m stage [32mbuild-and-push[0m and container [32mstep-place-tools[0m
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-git-source-meta-seldonio-jenkins-x-seldon-2xcv6[0m
-{"level":"warn","ts":1572188335.4517817,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
-{"level":"info","ts":1572188338.1098275,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ 29519742480451987ffd5e4abd20157637aa6aac in path /workspace/source"}
-
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-git-merge[0m
-Using SHAs from PULL_REFS=master:29519742480451987ffd5e4abd20157637aa6aac
-WARNING: no SHAs to merge, falling back to initial cloned commit
-
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-merge-pull-refs[0m
-SKIP merge-pull-refs: Nothing to merge
-
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-create-effective-pipeline[0m
-Effective pipeline written to jenkins-x-release-effective.yml
-
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-wmxhk-7[0m stage [32mmeta-pipeline[0m and container [32mstep-create-tekton-crds[0m
-running command: touch /workspace/source/VERSION
-
-WARNING: versions file /workspace/source/VERSION is empty!
-error: failed to set the version on release pipelines: failed to read file /workspace/source/VERSION
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-c6xvq-7[0m stage [32mbuild-and-push[0m and container [32mstep-git-source-seldonio-jenkins-x-seldon-core-sf2hk[0m
+{"level":"warn","ts":1575040004.0636153,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"error","ts":1575040004.5343852,"logger":"fallback-logger","caller":"git/git.go:35","msg":"Error running git [fetch --depth=1 --recurse-submodules=yes origin v0.5.2-SNAPSHOT]: exit status 128\nfatal: couldn't find remote ref v0.5.2-SNAPSHOT\n","stacktrace":"github.com/tektoncd/pipeline/pkg/git.run\n\t/workspace/go/src/github.com/tektoncd/pipeline/pkg/git/git.go:35\ngithub.com/tektoncd/pipeline/pkg/git.Fetch\n\t/workspace/go/src/github.com/tektoncd/pipeline/pkg/git/git.go:88\nmain.main\n\t/workspace/go/src/github.com/tektoncd/pipeline/cmd/git-init/main.go:36\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:200"}
+{"level":"error","ts":1575040007.1083636,"logger":"fallback-logger","caller":"git/git.go:35","msg":"Error running git [pull --recurse-submodules=yes origin]: exit status 1\nFrom https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox\n * [new branch]      add-new-**-bdd -> origin/add-new-**-bdd\n * [new branch]      dependabot/pip/components/outlier-detection/seq2seq-lstm/tensorflow-1.12.2 -> origin/dependabot/pip/components/outlier-detection/seq2seq-lstm/tensorflow-1.12.2\n * [new branch]      dependabot/pip/python/pillow-6.2.1 -> origin/dependabot/pip/python/pillow-6.2.1\n * [new branch]      gh-pages       -> origin/gh-pages\n * [new branch]      master         -> origin/master\n * [new branch]      newbranch      -> origin/newbranch\n * [new branch]      test_branch    -> origin/test_branch\n * [new branch]      test_pr        -> origin/test_pr\n * [new branch]      test_pr10      -> origin/test_pr10\n * [new branch]      test_pr2       -> origin/test_pr2\n * [new branch]      test_pr3       -> origin/test_pr3\n * [new branch]      test_pr4       -> origin/test_pr4\n * [new branch]      test_pr5       -> origin/test_pr5\n * [new branch]      test_pr6       -> origin/test_pr6\n * [new branch]      test_pr7       -> origin/test_pr7\n * [new branch]      test_pr8       -> origin/test_pr8\n * [new branch]      test_pr9       -> origin/test_pr9\n * [new branch]      testb          -> origin/testb\n * [new tag]         v-             -> v-\nYou asked to pull from the remote 'origin', but did not specify\na branch. Because this is not the default configured remote\nfor your current branch, you must specify a branch on the command line.\n","stacktrace":"github.com/tektoncd/pipeline/pkg/git.run\n\t/workspace/go/src/github.com/tektoncd/pipeline/pkg/git/git.go:35\ngithub.com/tektoncd/pipeline/pkg/git.Fetch\n\t/workspace/go/src/github.com/tektoncd/pipeline/pkg/git/git.go:91\nmain.main\n\t/workspace/go/src/github.com/tektoncd/pipeline/cmd/git-init/main.go:36\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:200"}
+{"level":"warn","ts":1575040007.1084788,"logger":"fallback-logger","caller":"git/git.go:92","msg":"Failed to pull origin : exit status 1"}
+{"level":"error","ts":1575040007.1106455,"logger":"fallback-logger","caller":"git/git.go:35","msg":"Error running git [checkout v0.5.2-SNAPSHOT]: exit status 1\nerror: pathspec 'v0.5.2-SNAPSHOT' did not match any file(s) known to git\n","stacktrace":"github.com/tektoncd/pipeline/pkg/git.run\n\t/workspace/go/src/github.com/tektoncd/pipeline/pkg/git/git.go:35\ngithub.com/tektoncd/pipeline/pkg/git.Fetch\n\t/workspace/go/src/github.com/tektoncd/pipeline/pkg/git/git.go:94\nmain.main\n\t/workspace/go/src/github.com/tektoncd/pipeline/cmd/git-init/main.go:36\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:200"}
+{"level":"fatal","ts":1575040007.1107388,"logger":"fallback-logger","caller":"git-init/main.go:37","msg":"Error fetching git repository: exit status 1","stacktrace":"main.main\n\t/workspace/go/src/github.com/tektoncd/pipeline/cmd/git-init/main.go:37\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:200"}
 [31m
-Pipeline failed on stage 'meta-pipeline' : container 'step-create-tekton-crds'. The execution of the pipeline has stopped.[0m
+Pipeline failed on stage 'build-and-push' : container 'step-git-source-seldonio-jenkins-x-seldon-core-sf2hk'. The execution of the pipeline has stopped.[0m
