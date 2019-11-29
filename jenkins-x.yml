@@ -1,6 +1,17 @@
 buildPack: none
 pipelineConfig:
   pipelines:
+    overrides:
+    - name: changelog
+       pipeline: release
+       stage: promote
+       step:
+         command: echo "skipping promote"
+    release:
+      setVersion:
+        steps:
+        - name: next-version
+           command: echo "skipping tag"
     pullRequest:
       pipeline:
         agent:
