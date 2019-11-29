@@ -36,7 +36,9 @@ pipelineConfig:
     release:
       setVersion:
         steps:
-        - name: next-version
+        - name: creating-version-file
+          command: cat version.txt > VERSION
+        - name: skip-tag
           command: echo "skipping tag"
       pipeline:
         agent:
