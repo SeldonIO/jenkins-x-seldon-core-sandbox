@@ -1,0 +1,77 @@
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-ht95p-2[0m stage [32mpython-lint-task[0m and container [32mstep-credential-initializer-hsk5d[0m
+{"level":"warn","ts":1579808555.2541637,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1579808555.2549398,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-ht95p-2[0m stage [32mpython-lint-task[0m and container [32mstep-working-dir-initializer-g56wc[0m
+{"level":"warn","ts":1579808555.8404465,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1579808555.8457382,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-ht95p-2[0m stage [32mpython-lint-task[0m and container [32mstep-place-tools[0m
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-ht95p-2[0m stage [32mpython-lint-task[0m and container [32mstep-git-source-seldonio-jenkins-x-seldon-core-pjq4p[0m
+{"level":"warn","ts":1579808562.9513898,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1579808566.0736775,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ master in path /workspace/source"}
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-ht95p-2[0m stage [32mpython-lint-task[0m and container [32mstep-git-merge[0m
+Using SHAs from PULL_REFS=add-new-**-bdd:488250b2131e4c4f4975392ff1d314274bb2e237,22:8bc51f6287fe9d9d8a4ee12209b30a5393522da5
+DEBUG: ran git fetch --unshallow origin 8bc51f6287fe9d9d8a4ee12209b30a5393522da5: 488250b2131e4c4f4975392ff1d314274bb2e237: in 
+DEBUG: ran git checkout add-new-**-bdd in 
+DEBUG: ran git reset --hard 488250b2131e4c4f4975392ff1d314274bb2e237 in 
+DEBUG: ran clean --force -d . in 
+DEBUG: ran git merge 8bc51f6287fe9d9d8a4ee12209b30a5393522da5 in 
+Merged SHA 8bc51f6287fe9d9d8a4ee12209b30a5393522da5 with commit message 'Added extra file' into base branch add-new-**-bdd
+Merged SHA 9bdc69186ee678afda388e5d08bd46b81dfa8c37 with commit message 'Added extra file' into base branch add-new-**-bdd
+Merged SHA 2ddd427c4a07b5e8e2e57b44859b3e3560061b10 with commit message 'Testing release' into base branch add-new-**-bdd
+Merged SHA f4721d1f605f4beff6aa35f512ce3858e8106110 with commit message 'Testing release' into base branch add-new-**-bdd
+Merged SHA c12faefa18764812d3c8a991d237a17ac05a0d85 with commit message 'Testing release' into base branch add-new-**-bdd
+Merged SHA f4177dcfa9065ef4495d18256ef2898c5bb578fb with commit message 'Testing release' into base branch add-new-**-bdd
+Merged SHA 6c2c73137780d9875917997f88c1fcce4486ed34 with commit message 'testing fix of release' into base branch add-new-**-bdd
+Merged SHA 9ed504387df4a77fee0d03bb08c085c9c0a1f4f5 with commit message 'testing fix of release' into base branch add-new-**-bdd
+Merged SHA 88c1c603f6d5e9c18645d9cea4594fa388e73765 with commit message 'testing fix of release' into base branch add-new-**-bdd
+Merged SHA 595c919d9ee95c5f27b9f4e5832ab9e0d8d9a06c with commit message 'testing fix of release' into base branch add-new-**-bdd
+Merged SHA c214d4b758728ac8fbdac1781f2a5f14458120be with commit message 'Added' into base branch add-new-**-bdd
+Merged SHA 8bd4a2471db8af14227e8a9b44fc97e8fef4ec98 with commit message 'Added latest' into base branch add-new-**-bdd
+Merged SHA 502080afa4d88b5c3bc5a33a863220ee4f5a96e2 with commit message 'Added the details for the jenkins-x to push images' into base branch add-new-**-bdd
+Merged SHA b9ffab120d6e0eb712f6b9b17ea9d4c8d4127792 with commit message 'Added the details for the jenkins-x to push images' into base branch add-new-**-bdd
+Merged SHA 83439a2dbb1749f020d59ac449bb946c0ef64b9c with commit message 'Added the details for the jenkins-x to push images' into base branch add-new-**-bdd
+Merged SHA b2e7b8698055747bc07e0311ca450cdef42c6693 with commit message 'Added the details for the jenkins-x to push images' into base branch add-new-**-bdd
+Merged SHA d339d644f6d6319b391e4bdb64079ac0c9761811 with commit message 'Added the details for the jenkins-x to push images' into base branch add-new-**-bdd
+Merged SHA 754f1f7f521559579d13acba062fba0e39715c23 with commit message 'added jenkins test for release' into base branch add-new-**-bdd
+Merged SHA b5744d968beec21e045ebb69e72cc2209b349d55 with commit message 'added jenkins test for release' into base branch add-new-**-bdd
+Merged SHA 4c3dea628552ec63760156a6f9d7c2bcbcfad0f8 with commit message 'added jenkins test for release' into base branch add-new-**-bdd
+Merged SHA 134b7060ada05ac81568fa5ebb2afe24707d64d6 with commit message 'added jenkins test for release' into base branch add-new-**-bdd
+Merged SHA ec5dc917ef8bf3f7555847f157bc7cd4f0454ed4 with commit message 'added jenkins test for release' into base branch add-new-**-bdd
+Merged SHA 29519742480451987ffd5e4abd20157637aa6aac with commit message 'added jenkins test for release' into base branch add-new-**-bdd
+Merged SHA e466622114124863b522d152a28098b0275e7cc7 with commit message 'added jenkins test for release' into base branch add-new-**-bdd
+Merged SHA e7d8cd1108d017249e5bdd2c17c68a868cb72240 with commit message 'added jenkins test for release' into base branch add-new-**-bdd
+Merged SHA 4281086e50746006c55282637e26d6a552c1cade with commit message 'release -' into base branch add-new-**-bdd
+Merged SHA 6189a26bb8074218dee299d06c1180f61b10307e with commit message 'release -' into base branch add-new-**-bdd
+Merged SHA ffe13e29d3e8370753253be4edeaab44f33530df with commit message 'added jenkins test for release' into base branch add-new-**-bdd
+Merged SHA 41765f248122f7099f739de7aafb1633fb9ccb21 with commit message 'Added latest master' into base branch add-new-**-bdd
+Merged SHA 9056ab0e5d6ba71ae2695a29b2f49315ef580cad with commit message 'Merge pull request #13 from SeldonIO/newbranch' into base branch add-new-**-bdd
+Merged SHA e7a18840366bbd47fe774134754ab3740cc9c63a with commit message 'commit' into base branch add-new-**-bdd
+
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-ht95p-2[0m stage [32mpython-lint-task[0m and container [32mstep-python-lint[0m
+make: Entering directory '/workspace/source/python'
+pip install black==19.3b0
+Collecting black==19.3b0
+  Downloading https://files.pythonhosted.org/packages/30/62/cf549544a5fe990bbaeca21e9c419501b2de7a701ab0afb377bc81676600/black-19.3b0-py36-none-any.whl (89kB)
+Collecting appdirs
+  Downloading https://files.pythonhosted.org/packages/56/eb/810e700ed1349edde4cbdc1b2a21e28cdf115f9faf263f6bbf8447c1abf3/appdirs-1.4.3-py2.py3-none-any.whl
+Collecting attrs>=18.1.0
+  Downloading https://files.pythonhosted.org/packages/a2/db/4313ab3be961f7a763066401fb77f7748373b6094076ae2bda2806988af6/attrs-19.3.0-py2.py3-none-any.whl
+Collecting click>=6.5
+  Downloading https://files.pythonhosted.org/packages/fa/37/45185cb5abbc30d7257104c434fe0b07e5a195a6847506c074527aa599ec/Click-7.0-py2.py3-none-any.whl (81kB)
+Collecting toml>=0.9.4
+  Downloading https://files.pythonhosted.org/packages/a2/12/ced7105d2de62fa7c8fb5fce92cc4ce66b57c95fb875e9318dba7f8c5db0/toml-0.10.0-py2.py3-none-any.whl
+Installing collected packages: appdirs, attrs, click, toml, black
+Successfully installed appdirs-1.4.3 attrs-19.3.0 black-19.3b0 click-7.0 toml-0.10.0
+WARNING: You are using pip version 19.3.1; however, version 20.0.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+black \
+	--check ./ ../testing \
+	--exclude "(testing/scripts/proto|seldon_core/proto/|.eggs|.tox)"
+All done! ✨ 🍰 ✨
+49 files would be left unchanged.
+make: Leaving directory '/workspace/source/python'
