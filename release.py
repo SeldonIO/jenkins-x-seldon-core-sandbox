@@ -65,14 +65,12 @@ def update_pom_file(fpath, seldon_core_version, debug=False):
     if MAVEN_REPOSITORY_LOCATION == None:
         args = [
             "mvn",
-            "-v",
             "versions:set",
             "-DnewVersion={seldon_core_version}".format(**locals()),
         ]
     else:
         args = [
             "mvn",
-            "-v",
             "versions:set",
             "-DnewVersion={seldon_core_version}".format(**locals()),
             "-Dmaven.repo.local={MAVEN_REPOSITORY_LOCATION}".format(**locals()),
