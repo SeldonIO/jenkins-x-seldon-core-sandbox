@@ -59,7 +59,7 @@ pipelineConfig:
         - name: create-version
           command: echo $(cat version.txt) > VERSION
         - name: delete-existing-branch
-          command: git branch -D v$(cat VERSION) || echo "No branch exists"
+          command: git branch -D v\$(cat VERSION) || echo "No branch exists"
         - name: create-new-branch
           command: git checkout -b v\$(cat VERSION)
         - name: commit-new-branch
@@ -80,8 +80,8 @@ pipelineConfig:
               command: echo $(cat version.txt)_$(date +"%Y%m%d%H%M%S") > version.txt
             - name: create-new-branch
               command: git checkout -b v$(cat version.txt)
-            - name: configure-helm-charts
-              command: python release.py $(cat version.txt)
+            - name: update-release-tags
+              command: python release.py $\(cat version.txt)
             - name: add-changes-to-branch
               command: git add .
             - name: commit-changes-to-branch
