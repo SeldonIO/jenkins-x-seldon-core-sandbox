@@ -81,7 +81,7 @@ pipelineConfig:
             - name: create-new-branch
               command: git checkout -b v$(cat version.txt)
             - name: update-release-tags
-              command: python release.py $\(cat version.txt)
+              command: python release.py $(cat version.txt)
             - name: add-changes-to-branch
               command: git add .
             - name: commit-changes-to-branch
