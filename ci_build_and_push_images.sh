@@ -62,6 +62,6 @@ service docker stop || true
 # NOW THAT WE'VE CLEANED WE CAN EXIT ON TEST EXIT VALUE
 exit $((${PYTHON_EXIT_VALUE} \
     + ${OPERATOR_EXIT_VALUE} \
-    + ${ENGINE_EXIT_VALUE})) \
-    + ${EXECUTOR_EXIT_VALUE})
+    + ${ENGINE_EXIT_VALUE} \
+    + ${EXECUTOR_EXIT_VALUE}))
 
