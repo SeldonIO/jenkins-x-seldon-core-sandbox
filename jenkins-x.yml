@@ -57,7 +57,7 @@ pipelineConfig:
       setVersion:
         steps:
         - name: create-version
-          command: echo $(cat version.txt) > VERSION
+          command: echo \$(cat version.txt) > VERSION
         - name: delete-existing-branch
           command: git branch -D v\$(cat VERSION) || echo "No branch exists"
         - name: create-new-branch
@@ -72,20 +72,22 @@ pipelineConfig:
         stages:
           - name: build-and-push
             steps:
-            - name: build-and-push-images
-              command: bash
-              args:
-              - ./ci_build_and_push_images.sh
+#            - name: build-and-push-images
+#              command: bash
+#              args:
+#              - ./ci_build_and_push_images.sh
             - name: create-dated-version
               command: echo $(cat version.txt)_$(date +"%Y%m%d%H%M%S") > version.txt
             - name: create-new-branch
-              command: git checkout -b v\$(cat version.txt)
+              command: git checkout -b v$(cat version.txt)
             - name: configure-helm-charts
-              command: python release.py \$(cat version.txt)
+              command: python release.py $(cat version.txt)
             - name: add-changes-to-branch
               command: git add .
             - name: commit-changes-to-branch
               command: git commit -m "Added changes for branch"
+            - name: push-changes-to-branch
+              command: git push origin v$(cat version.txt) 
             - name: build-and-push-dated-images
               command: bash
               args:
