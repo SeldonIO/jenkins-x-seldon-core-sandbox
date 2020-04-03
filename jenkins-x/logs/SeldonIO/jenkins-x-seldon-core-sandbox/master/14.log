@@ -1,38 +1,29 @@
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-9pj6b-14[0m stage [32mmeta-pipeline[0m and container [32mstep-credential-initializer-9kswc[0m
-{"level":"warn","ts":1572628090.488151,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
-{"level":"info","ts":1572628090.4889784,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-lbzbc-14[0m stage [32mbuild-and-push[0m and container [32mstep-credential-initializer-kfwxq[0m
+{"level":"warn","ts":1585930504.1297078,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/0.8.0-**-support-backwards-incompats\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1585930504.1301022,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-9pj6b-14[0m stage [32mmeta-pipeline[0m and container [32mstep-working-dir-initializer-5rbfj[0m
-{"level":"warn","ts":1572628091.8096735,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
-{"level":"info","ts":1572628091.8113935,"logger":"fallback-logger","caller":"bash/main.go:65","msg":"Successfully executed command \"mkdir -p /workspace/source\""}
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-lbzbc-14[0m stage [32mbuild-and-push[0m and container [32mstep-working-dir-initializer-cwp5b[0m
+{"level":"warn","ts":1585930504.5245707,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: open /var/run/ko/HEAD: no such file or directory"}
+{"level":"info","ts":1585930504.5262814,"logger":"fallback-logger","caller":"bash/main.go:64","msg":"Successfully executed command \"sh -c mkdir -p /workspace/source\"; output "}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-9pj6b-14[0m stage [32mmeta-pipeline[0m and container [32mstep-place-tools[0m
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-lbzbc-14[0m stage [32mbuild-and-push[0m and container [32mstep-place-tools[0m
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-9pj6b-14[0m stage [32mmeta-pipeline[0m and container [32mstep-git-source-meta-seldonio-jenkins-x-seldon-jsfgs[0m
-{"level":"warn","ts":1572628096.8946779,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/master\" is not a valid GitHub commit ID"}
-{"level":"info","ts":1572628099.671015,"logger":"fallback-logger","caller":"git/git.go:102","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ 83439a2dbb1749f020d59ac449bb946c0ef64b9c in path /workspace/source"}
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-lbzbc-14[0m stage [32mbuild-and-push[0m and container [32mstep-git-source-seldonio-jenkins-x-seldon-core-p6vw4[0m
+{"level":"warn","ts":1585930520.7304769,"logger":"fallback-logger","caller":"logging/config.go:69","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/0.8.0-**-support-backwards-incompats\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1585930535.3861713,"logger":"fallback-logger","caller":"git/git.go:103","msg":"Successfully cloned https://github.com/SeldonIO/jenkins-x-seldon-core-sandbox.git @ v10.0.3-SNAPSHOT in path /workspace/source"}
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-9pj6b-14[0m stage [32mmeta-pipeline[0m and container [32mstep-git-merge[0m
-Using SHAs from PULL_REFS=master:83439a2dbb1749f020d59ac449bb946c0ef64b9c
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-lbzbc-14[0m stage [32mbuild-and-push[0m and container [32mstep-git-merge[0m
+Using SHAs from PULL_REFS=master:b33bc78e1e101fdb1aca230057bfe17f877ad353
 WARNING: no SHAs to merge, falling back to initial cloned commit
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-9pj6b-14[0m stage [32mmeta-pipeline[0m and container [32mstep-merge-pull-refs[0m
-SKIP merge-pull-refs: Nothing to merge
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-lbzbc-14[0m stage [32mbuild-and-push[0m and container [32mstep-create-dated-version[0m
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-9pj6b-14[0m stage [32mmeta-pipeline[0m and container [32mstep-create-effective-pipeline[0m
-Effective pipeline written to jenkins-x-release-effective.yml
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-lbzbc-14[0m stage [32mbuild-and-push[0m and container [32mstep-create-new-branch[0m
+Switched to a new branch 'v10.0.3-SNAPSHOT_20200403161535'
+M	version.txt
 
-Showing logs for build [32mmeta-seldonio-jenkins-x-seldon-9pj6b-14[0m stage [32mmeta-pipeline[0m and container [32mstep-create-tekton-crds[0m
-running command: echo "ignoring..."
-ignoring...
-
-running command: echo "ignoring..."
-ignoring...
-
-running command: echo "ignoring..."
-ignoring...
-
-error: failed to set the version on release pipelines: failed to read file /workspace/source/VERSION
+Showing logs for build [32mseldonio-jenkins-x-seldon-core-lbzbc-14[0m stage [32mbuild-and-push[0m and container [32mstep-update-release-tags[0m
+/bin/sh: 1: Syntax error: ")" unexpected
 [31m
-Pipeline failed on stage 'meta-pipeline' : container 'step-create-tekton-crds'. The execution of the pipeline has stopped.[0m
+Pipeline failed on stage 'build-and-push' : container 'step-update-release-tags'. The execution of the pipeline has stopped.[0m
