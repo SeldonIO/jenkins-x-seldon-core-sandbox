@@ -80,10 +80,8 @@ pipelineConfig:
               command: echo $(cat version.txt)_$(date +"%Y%m%d%H%M%S") > version.txt
             - name: create-new-branch
               command: git checkout -b v$(cat version.txt)
-            - name: download-mvn-dependencies
-              command: (cd engine && mvn -X versions:set -DnewVersion=$(cat ../version.txt))
             - name: update-release-tags
-              command: python release.py $(cat version.txt)
+              command: (cd engine && mvn versions:set -DnewVersion=$(cat ../version.txt)) && python release.py $(cat version.txt)
             - name: add-changes-to-branch
               command: git add .
             - name: commit-changes-to-branch
