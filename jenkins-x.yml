@@ -57,9 +57,9 @@ pipelineConfig:
       setVersion:
         steps:
         - name: create-version
-          command: echo v$(cat version.txt)_$(date +"%Y%m%d%H%M%S") > VERSION
+          command: echo $(cat version.txt) > VERSION
         - name: delete-existing-branch
-          command: git branch -D \$(cat VERSION) || echo "No branch exists"
+          command: git branch -D v\$(cat VERSION) || echo "No branch exists"
         - name: create-new-branch
           command: git checkout -b v\$(cat VERSION)
         - name: commit-new-branch
