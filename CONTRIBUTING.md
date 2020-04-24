@@ -1,5 +1,7 @@
 # Contributing to Seldon Core
 
+You need to create release notes.
+
 _Before opening a pull request_ consider:
 
 - Is the change important and ready enough to ask the community to spend time reviewing?
