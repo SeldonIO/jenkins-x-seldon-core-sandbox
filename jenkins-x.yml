@@ -56,77 +56,25 @@ pipelineConfig:
     release:
       setVersion:
         steps:
-        - name: create-version
-          command: cat version.txt > VERSION
         - name: delete-existing-branch
           command: git branch -D v\$(cat version.txt) || echo "No branch exists"
         - name: create-new-branch
           command: git checkout -b v\$(cat version.txt)
         - name: commit-new-branch
           command: git push origin v\$(cat version.txt) -f
+        - name: update-dated-version
+          command: echo $(cat version.txt)_$(date +"%Y%m%d%H%M%S") > version.txt
+        - name: create-version-file
+          command: cat version.txt > VERSION
+        - name: create-new-branch
+          command: git checkout -b v\$(cat version.txt)
+        - name: update-release-tags
+          command: (cd engine && mvn versions:set -DnewVersion=$(cat ../version.txt)) && python release.py $(cat version.txt)
+        - name: add-changes-to-branch
+          command: git add .
+        - name: commit-changes-to-branch
+          command: git commit -m "Updated version for $(cat version.txt)"
+        - name: commit-new-branch
+          command: git push origin v\$(cat version.txt)
         - name: skip-tag
           command: echo "skipping tag"
-      pipeline:
-        agent:
-          image: seldonio/core-builder:0.15
-        stages:
-          - name: build-and-push
-            steps:
-            - name: build-and-push-images
-              command: bash
-              args:
-              - ./ci_build_and_push_images.sh
-            - name: create-dated-version
-              command: echo $(cat version.txt)_$(date +"%Y%m%d%H%M%S") > version.txt
-            - name: create-new-branch
-              command: git checkout -b v$(cat version.txt)
-            # This is necessary as the python release.py has a known bug which hangs if the JARs are not downloaded first
-            - name: update-release-tags
-              command: (cd engine && mvn versions:set -DnewVersion=$(cat ../version.txt)) && python release.py $(cat version.txt)
-            - name: add-changes-to-branch
-              command: git add .
-            - name: commit-changes-to-branch
-              command: git commit -m "Added changes for branch"
-            - name: build-and-push-dated-images
-              command: bash
-              args:
-              - ./ci_build_and_push_images.sh
-            - name: push-new-branch
-              command: git push origin v$(cat version.txt) 
-            options:
-              containerOptions:
-                volumeMounts:
-                  - mountPath: /lib/modules
-                    name: modules
-                    readOnly: true
-                  - mountPath: /sys/fs/cgroup
-                    name: cgroup
-                  - name: dind-storage
-                    mountPath: /var/lib/docker
-                  - mountPath: /builder/home/.docker
-                    name: jenkins-docker-config-volume
-                resources:
-                  requests:
-                    cpu: 1
-                    memory: 2000Mi
-                securityContext:
-                  privileged: true
-                imagePullPolicy: Always
-              volumes:
-                - name: modules
-                  hostPath:
-                    path: /lib/modules
-                    type: Directory
-                - name: cgroup
-                  hostPath:
-                    path: /sys/fs/cgroup
-                    type: Directory
-                - name: dind-storage
-                  emptyDir: {}
-                - name: jenkins-docker-config-volume
-                  secret:
-                    items:
-                    - key: config.json
-                      path: config.json
-                    secretName: jenkins-docker-cfg
-
