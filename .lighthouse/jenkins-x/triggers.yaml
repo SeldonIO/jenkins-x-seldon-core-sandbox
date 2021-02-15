@@ -1,0 +1,11 @@
+apiVersion: config.lighthouse.jenkins-x.io/v1alpha1
+kind: TriggerConfig
+spec:
+  presubmits:
+  - name: integration
+    context: "integration"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| integration.*),?(s+|$)
+    rerun_command: "/test integration"
+    source: "integration.yaml"
