@@ -40,4 +40,3 @@ spec:
   serviceAccountName: tekton-bot
   timeout: 240h0m0s
 status: {}
-
