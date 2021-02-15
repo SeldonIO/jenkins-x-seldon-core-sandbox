@@ -10,6 +10,8 @@ spec:
       resources: {}
       taskSpec:
         steps:
+        - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
+          name: ""
         - command:
           - echo
           - "hello world"

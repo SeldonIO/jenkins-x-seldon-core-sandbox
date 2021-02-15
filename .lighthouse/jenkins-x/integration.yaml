@@ -1,8 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  annotations:
-    lighthouse.jenkins-x.io/prependStepsURL: https://raw.githubusercontent.com/jenkins-x/jx3-pipeline-catalog/60bed6408732c1eda91a15713f51a9f97dcb1757/tasks/git-clone/git-clone-pr.yaml
+  creationTimestamp: null
   name: integration
 spec:
   pipelineSpec:
@@ -10,6 +9,8 @@ spec:
     - name: integration-test-task
       taskSpec:
         steps:
+        - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
+          name: ""
         - name: pr-build-comment
           image: gcr.io/jenkinsxio/builder-go:2.0.916-264
           dir: ci
