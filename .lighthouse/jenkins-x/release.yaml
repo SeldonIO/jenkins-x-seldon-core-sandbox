@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  creationTimestamp: null
+  name: release
+spec:
+  pipelineSpec:
+    tasks:
+    - name: chart
+      resources: {}
+      taskSpec:
+        steps:
+        - command:
+          - echo
+          - "hello world"
+          image: gcr.io/jenkinsxio/jx-updatebot:latest
+          name: promote-release
+          resources: {}
+  podTemplate: {}
+  serviceAccountName: tekton-bot
+  timeout: 240h0m0s
+status: {}
