@@ -9,3 +9,4 @@ spec:
     trigger: (?m)^/test( all| integration.*),?(s+|$)
     rerun_command: "/test integration"
     source: "integration.yaml"
+
