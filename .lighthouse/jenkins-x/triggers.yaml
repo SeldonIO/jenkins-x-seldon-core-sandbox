@@ -2,6 +2,11 @@ apiVersion: config.lighthouse.jenkins-x.io/v1alpha1
 kind: TriggerConfig
 spec:
   presubmits:
+  - name: pr
+    context: "pr"
+    always_run: true
+    optional: false
+    source: "pullrequest.yaml"
   - name: integration
     context: "integration"
     always_run: false
@@ -16,4 +21,3 @@ spec:
     branches:
     - ^main$
     - ^master$
-
