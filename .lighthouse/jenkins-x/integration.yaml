@@ -13,11 +13,10 @@ spec:
           name: ""
         - name: pr-build-comment
           image: gcr.io/jenkinsxio/builder-go:2.0.916-264
-          dir: ci
           command:
-            - ls
+            - sh
           args:
-            - ./source/
+            - ./source/ci/add-pr-build-comment
         - name: integration-step
           image: seldonio/core-builder:0.19
           env:
@@ -28,10 +27,7 @@ spec:
           command: 
             - bash
           args:
-            - cd 
-            - testing/scripts &&
-            - bash
-            - kind_test_all.sh
+            - -C "cd source/testing/scripts && bash kind_test_all.sh"
           volumeMounts:
           - mountPath: /lib/modules
             name: modules
