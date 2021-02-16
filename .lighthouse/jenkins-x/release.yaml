@@ -8,6 +8,9 @@ spec:
     tasks:
     - name: release-test-task
       taskSpec:
+        stepTemplate:
+          name: ""
+          workingDir: /workspace/source
         steps:
         - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
           name: ""

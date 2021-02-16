@@ -8,6 +8,9 @@ spec:
     tasks:
     - name: integration-test-task
       taskSpec:
+        stepTemplate:
+          name: ""
+          workingDir: /workspace/source
         steps:
         - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
           name: ""
@@ -18,10 +21,9 @@ spec:
               value: base
             - name: SELDON_E2E_TESTS_POD_INFORMATION
               value: "true"
-          command: 
-            - bash
-          args:
-            - -c "cd source/testing/scripts && bash kind_test_all.sh"
+          script: |
+            #!/bin/bash
+            cd /workspace/source/testing/scripts && bash kind_test_all.sh
           volumeMounts:
           - mountPath: /lib/modules
             name: modules
