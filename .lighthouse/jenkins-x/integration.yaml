@@ -21,9 +21,7 @@ spec:
               value: base
             - name: SELDON_E2E_TESTS_POD_INFORMATION
               value: "true"
-          script: |
-            #!/bin/sh
-            cd /workspace/source/testing/scripts && bash kind_test_all.sh
+          command: ["bash", "-c", "ls"]
           volumeMounts:
           - mountPath: /lib/modules
             name: modules
