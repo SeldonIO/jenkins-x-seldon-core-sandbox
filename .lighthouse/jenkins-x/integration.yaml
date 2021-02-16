@@ -39,7 +39,7 @@ spec:
               memory: 8000Mi
               ephemeral-storage: "6Gi"
             limits:
-              cpu: 4
+              cpu: 3
               memory: 8000Mi
               ephemeral-storage: "6Gi"
           securityContext:
