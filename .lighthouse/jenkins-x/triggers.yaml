@@ -20,8 +20,8 @@ spec:
     context: "build-and-push-images"
     always_run: false
     optional: false
-    trigger: (?m)^/trigger release$
-    rerun_command: "/trigger release"
+    trigger: (?m)^/test( all| release.*),?(s+|$)
+    rerun_command: "/test release"
     source: "release.yaml"
   postsubmits:
   - name: release
