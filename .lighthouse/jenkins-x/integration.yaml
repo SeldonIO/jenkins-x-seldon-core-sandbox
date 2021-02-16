@@ -2,11 +2,11 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   creationTimestamp: null
-  name: release
+  name: integration
 spec:
   pipelineSpec:
     tasks:
-    - name: release-test-task
+    - name: integration-test-task
       taskSpec:
         stepTemplate:
           name: ""
@@ -14,12 +14,17 @@ spec:
         steps:
         - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
           name: ""
-        - name: release-step
+        - name: integration-step
           image: seldonio/core-builder:0.19
+          env:
+            - name: SELDON_E2E_TESTS_TO_RUN
+              value: base
+            - name: SELDON_E2E_TESTS_POD_INFORMATION
+              value: "true"
           command:
             - bash
             - -c
-            - ./ci_build_and_push_images.sh
+            - cd testing/scripts && bash kind_test_all.sh
           volumeMounts:
           - mountPath: /lib/modules
             name: modules
@@ -28,16 +33,14 @@ spec:
             name: cgroup
           - name: dind-storage
             mountPath: /var/lib/docker
-          - mountPath: /builder/home/.docker
-            name: jenkins-docker-config-volume
           resources:
             requests:
-              cpu: 2
-              memory: 2000Mi
+              cpu: 3
+              memory: 8000Mi
               ephemeral-storage: "6Gi"
             limits:
-              cpu: 2
-              memory: 2000Mi
+              cpu: 3
+              memory: 8000Mi
               ephemeral-storage: "6Gi"
           securityContext:
             privileged: true
@@ -53,13 +56,6 @@ spec:
               type: Directory
           - name: dind-storage
             emptyDir: {}
-          - name: jenkins-docker-config-volume
-            secret:
-              items:
-              - key: config.json
-                path: config.json
-              secretName: jenkins-docker-cfg
-
   podTemplate: {}
   serviceAccountName: tekton-bot
   timeout: 6h0m0s
