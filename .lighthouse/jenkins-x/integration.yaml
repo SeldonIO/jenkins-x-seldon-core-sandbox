@@ -21,7 +21,7 @@ spec:
           command: 
             - bash
           args:
-            - -C "cd source/testing/scripts && bash kind_test_all.sh"
+            - -c "cd source/testing/scripts && bash kind_test_all.sh"
           volumeMounts:
           - mountPath: /lib/modules
             name: modules
