@@ -15,9 +15,9 @@ spec:
           image: gcr.io/jenkinsxio/builder-go:2.0.916-264
           dir: ci
           command:
-            - sh
+            - ls
           args:
-            - ./add-pr-build-comment
+            - -la
         - name: integration-step
           image: seldonio/core-builder:0.19
           env:
