@@ -15,9 +15,9 @@ spec:
           image: gcr.io/jenkinsxio/builder-go:2.0.916-264
           dir: ci
           command:
-            - ls
+            - sh
           args:
-            - -la
+            - ./source/add-pr-build-comment
         - name: integration-step
           image: seldonio/core-builder:0.19
           env:
@@ -26,8 +26,9 @@ spec:
             - name: SELDON_E2E_TESTS_POD_INFORMATION
               value: "true"
           command: 
-            - cd
+            - bash
           args:
+            - cd 
             - testing/scripts &&
             - bash
             - kind_test_all.sh
