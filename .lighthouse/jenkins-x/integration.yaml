@@ -11,12 +11,6 @@ spec:
         steps:
         - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
           name: ""
-        - name: pr-build-comment
-          image: gcr.io/jenkinsxio/builder-go:2.0.916-264
-          command:
-            - sh
-          args:
-            - ./source/ci/add-pr-build-comment
         - name: integration-step
           image: seldonio/core-builder:0.19
           env:
