@@ -8,6 +8,9 @@ spec:
     tasks:
     - name: integration-test-task
       taskSpec:
+        stepTemplate:
+          name: ""
+          workingDir: /workspace/source
         steps:
         - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
           name: ""
@@ -18,10 +21,10 @@ spec:
               value: base
             - name: SELDON_E2E_TESTS_POD_INFORMATION
               value: "true"
-          command: 
+          command:
             - bash
             - -c
-            - cd source/testing/scripts && bash kind_test_all.sh
+            - cd testing/scripts && bash kind_test_all.sh
           volumeMounts:
           - mountPath: /lib/modules
             name: modules
@@ -33,6 +36,10 @@ spec:
           resources:
             requests:
               cpu: 3
+              memory: 8000Mi
+              ephemeral-storage: "6Gi"
+            limits:
+              cpu: 4
               memory: 8000Mi
               ephemeral-storage: "6Gi"
           securityContext:

@@ -8,16 +8,12 @@ spec:
     tasks:
     - name: notebooks-test-task
       taskSpec:
+        stepTemplate:
+          name: ""
+          workingDir: /workspace/source
         steps:
         - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
           name: ""
-        - name: pr-build-comment
-          image: gcr.io/jenkinsxio/builder-go:2.0.916-264
-          dir: ci
-          command:
-            - sh
-          args:
-            - ./add-pr-build-comment
         - name: notebooks-step
           image: seldonio/core-builder:0.19
           env:
@@ -25,12 +21,10 @@ spec:
               value: notebooks
             - name: SELDON_E2E_TESTS_POD_INFORMATION
               value: "true"
-          command: 
-            - cd
-          args:
-            - testing/scripts &&
+          command:
             - bash
-            - kind_test_all.sh
+            - -c
+            - cd testing/scripts && bash kind_test_all.sh
           volumeMounts:
           - mountPath: /lib/modules
             name: modules
@@ -41,6 +35,10 @@ spec:
             mountPath: /var/lib/docker
           resources:
             requests:
+              cpu: 4
+              memory: 8000Mi
+              ephemeral-storage: "6Gi"
+            limits:
               cpu: 4
               memory: 8000Mi
               ephemeral-storage: "6Gi"

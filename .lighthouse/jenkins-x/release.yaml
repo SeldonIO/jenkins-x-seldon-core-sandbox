@@ -16,9 +16,9 @@ spec:
           name: ""
         - name: release-step
           image: seldonio/core-builder:0.19
-          command: 
+          command:
             - bash
-          args:
+            - -c
             - ./ci_build_and_push_images.sh
           volumeMounts:
           - mountPath: /lib/modules
@@ -32,6 +32,10 @@ spec:
             name: jenkins-docker-config-volume
           resources:
             requests:
+              cpu: 2
+              memory: 2000Mi
+              ephemeral-storage: "6Gi"
+            limits:
               cpu: 2
               memory: 2000Mi
               ephemeral-storage: "6Gi"
